@@ -1,0 +1,106 @@
+[
+    {
+        "id": 1,
+        "title": "2048",
+        "description": "El clásico juego de puzzles numéricos. Desliza y combina fichas para alcanzar 2048.",
+        "thumbnail": "assets/img/2048.png",
+        "technologies": [
+            "HTML5",
+            "CSS3",
+            "JavaScript"
+        ],
+        "playUrl": "/juegos/2048/index.html",
+        "codeUrl": "#"
+    },
+    {
+        "id": 2,
+        "title": "BlackJack",
+        "description": "Juego de cartas BlackJack contra la máquina. ¿Llegarás a 21?",
+        "thumbnail": "assets/img/blackjack.png",
+        "technologies": [
+            "HTML5",
+            "CSS3",
+            "JavaScript"
+        ],
+        "playUrl": "/juegos/BlackJack/index.html",
+        "codeUrl": "#"
+    },
+    {
+        "id": 3,
+        "title": "Conecta 4",
+        "description": "El juego de estrategia donde debes alinear 4 fichas antes que tu oponente.",
+        "thumbnail": "assets/img/conecta4.png",
+        "technologies": [
+            "HTML5",
+            "CSS3",
+            "JavaScript"
+        ],
+        "playUrl": "/juegos/Conecta4/index.html",
+        "codeUrl": "#"
+    },
+    {
+        "id": 4,
+        "title": "Juego de Memoria (Pokémon)",
+        "description": "Encuentra las parejas de cartas Pokémon. ¡Pon a prueba tu memoria!",
+        "thumbnail": "assets/img/memoria.png",
+        "technologies": [
+            "HTML5",
+            "CSS3",
+            "JavaScript"
+        ],
+        "playUrl": "/juegos/JuegoMemoria/index.html",
+        "codeUrl": "#"
+    },
+    {
+        "id": 5,
+        "title": "Tic Tac Toe",
+        "description": "El clásico Tres en Raya. Juega contra otro jugador.",
+        "thumbnail": "assets/img/tictactoe.png",
+        "technologies": [
+            "HTML5",
+            "CSS3",
+            "JavaScript"
+        ],
+        "playUrl": "/juegos/TicTacToe/index.html",
+        "codeUrl": "#"
+    },
+    {
+        "id": 6,
+        "title": "Wordle",
+        "description": "Adivina la palabra secreta en 6 intentos. ¡El viral juego de palabras!",
+        "thumbnail": "assets/img/wordle.png",
+        "technologies": [
+            "HTML5",
+            "CSS3",
+            "JavaScript"
+        ],
+        "playUrl": "/juegos/Wordle/wordle.html",
+        "codeUrl": "#"
+    },
+    {
+        "id": 7,
+        "title": "Sudoku",
+        "description": "El rompecabezas numérico por excelencia. Completa la cuadrícula 9x9.",
+        "thumbnail": "assets/img/sudoku.png",
+        "technologies": [
+            "HTML5",
+            "CSS3",
+            "JavaScript"
+        ],
+        "playUrl": "/juegos/SudokuDos/index.html",
+        "codeUrl": "#"
+    },
+    {
+        "id": 8,
+        "title": "Generador de Contraseñas",
+        "description": "Herramienta para generar contraseñas seguras y aleatorias.",
+        "thumbnail": "assets/img/password.png",
+        "technologies": [
+            "HTML5",
+            "CSS3",
+            "JavaScript"
+        ],
+        "playUrl": "/juegos/GeneradorContraseñas/index.html",
+        "codeUrl": "#"
+    }
+]

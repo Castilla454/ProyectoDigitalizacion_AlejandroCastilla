@@ -1,0 +1,50 @@
+<div class="leaderboard-container glass">
+    <div class="leaderboard-header">
+        <h3>🏆 Ranking - {{ gameTitle }}</h3>
+    </div>
+
+    <div class="leaderboard-content">
+        <!-- Loading State -->
+        <div *ngIf="isLoading" class="loading-state">
+            <div class="spinner"></div>
+            <span>Cargando puntuaciones...</span>
+        </div>
+
+        <!-- Error State -->
+        <div *ngIf="error" class="error-state">
+            <i class="fas fa-exclamation-circle"></i>
+            <span>{{ error }}</span>
+            <button (click)="loadLeaderboard()" class="btn-retry">Reintentar</button>
+        </div>
+
+        <!-- Empty State -->
+        <div *ngIf="!isLoading && !error && leaderboard.length === 0" class="empty-state">
+            <i class="fas fa-trophy"></i>
+            <span>¡Sé el primero en el ranking!</span>
+        </div>
+
+        <!-- Leaderboard Table -->
+        <table *ngIf="!isLoading && !error && leaderboard.length > 0" class="leaderboard-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Jugador</th>
+                    <th>Puntos</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let entry of leaderboard" [class]="getMedalClass(entry.rank)">
+                    <td class="rank">
+                        <span class="rank-badge" [class]="getMedalClass(entry.rank)">
+                            {{ entry.rank }}
+                        </span>
+                    </td>
+                    <td class="player-name">{{ entry.player_name }}</td>
+                    <td class="score">{{ entry.score | number }}</td>
+                    <td class="date">{{ formatDate(entry.created_at) }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

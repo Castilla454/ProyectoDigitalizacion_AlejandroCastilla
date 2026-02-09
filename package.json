@@ -1,0 +1,18 @@
+{
+  "name": "game-dev-portfolio",
+  "version": "1.0.0",
+  "description": "Game Developer Portfolio with Node.js and Angular",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "install:all": "npm install && cd frontend && npm install",
+    "build:frontend": "cd frontend && npm run build"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.4",
+    "express": "^4.18.2",
+    "pg": "^8.18.0"
+  }
+}

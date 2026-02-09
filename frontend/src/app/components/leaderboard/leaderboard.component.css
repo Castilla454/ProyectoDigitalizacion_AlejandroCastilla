@@ -1,0 +1,185 @@
+/* ========================================
+   LEADERBOARD COMPONENT
+   ======================================== */
+
+.leaderboard-container {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.leaderboard-header {
+    padding: var(--space-md) var(--space-lg);
+    background: var(--gradient-primary);
+    color: var(--bg-primary);
+}
+
+.leaderboard-header h3 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.leaderboard-content {
+    padding: var(--space-lg);
+    background: var(--bg-secondary);
+}
+
+/* States */
+.loading-state,
+.error-state,
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-xl);
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.loading-state i,
+.error-state i,
+.empty-state i {
+    font-size: 2rem;
+    color: var(--accent-cyan);
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--glass-border);
+    border-top-color: var(--accent-cyan);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.btn-retry {
+    padding: var(--space-sm) var(--space-md);
+    background: transparent;
+    border: 1px solid var(--accent-cyan);
+    color: var(--accent-cyan);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.btn-retry:hover {
+    background: var(--accent-cyan);
+    color: var(--bg-primary);
+}
+
+/* Table */
+.leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+    padding: var(--space-sm) var(--space-md);
+    text-align: left;
+}
+
+.leaderboard-table th {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.leaderboard-table tbody tr {
+    transition: background var(--transition-fast);
+}
+
+.leaderboard-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+/* Rank Badges */
+.rank-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 0.85rem;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+}
+
+.rank-badge.gold {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: #000;
+    border: none;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+}
+
+.rank-badge.silver {
+    background: linear-gradient(135deg, #C0C0C0, #A0A0A0);
+    color: #000;
+    border: none;
+    box-shadow: 0 0 10px rgba(192, 192, 192, 0.4);
+}
+
+.rank-badge.bronze {
+    background: linear-gradient(135deg, #CD7F32, #A0522D);
+    color: #fff;
+    border: none;
+    box-shadow: 0 0 10px rgba(205, 127, 50, 0.4);
+}
+
+/* Row Highlights */
+.leaderboard-table tbody tr.gold {
+    background: rgba(255, 215, 0, 0.05);
+}
+
+.leaderboard-table tbody tr.silver {
+    background: rgba(192, 192, 192, 0.05);
+}
+
+.leaderboard-table tbody tr.bronze {
+    background: rgba(205, 127, 50, 0.05);
+}
+
+/* Cells */
+.player-name {
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.score {
+    font-weight: 700;
+    font-family: var(--font-display);
+    color: var(--accent-cyan);
+}
+
+.date {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+
+    .leaderboard-table th,
+    .leaderboard-table td {
+        padding: var(--space-xs) var(--space-sm);
+        font-size: 0.85rem;
+    }
+
+    .date {
+        display: none;
+    }
+}

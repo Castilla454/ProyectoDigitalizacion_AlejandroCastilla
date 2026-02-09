@@ -1,0 +1,285 @@
+/* ========================================
+   PROJECT LIST - Premium Cards
+   ======================================== */
+
+.section-title {
+    text-align: center;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    margin: var(--space-3xl) 0;
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--gradient-primary);
+    border-radius: var(--radius-full);
+}
+
+/* Projects Grid */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--space-xl);
+    padding-bottom: var(--space-3xl);
+}
+
+/* Project Card - 3D Effect */
+.project-card {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: all var(--transition-slow);
+    position: relative;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.project-card::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: var(--gradient-primary);
+    border-radius: var(--radius-lg);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity var(--transition-base);
+}
+
+.project-card:hover {
+    transform: translateY(-10px) rotateX(2deg);
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 0 30px rgba(0, 240, 255, 0.15);
+}
+
+.project-card:hover::before {
+    opacity: 1;
+}
+
+/* Thumbnail with Overlay */
+.thumbnail {
+    height: 220px;
+    background-size: cover;
+    background-position: center;
+    background-color: var(--bg-tertiary);
+    position: relative;
+    overflow: hidden;
+}
+
+.thumbnail::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg,
+            transparent 0%,
+            transparent 50%,
+            rgba(10, 10, 15, 0.8) 100%);
+    z-index: 1;
+}
+
+.thumbnail::after {
+    content: '▶';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 70px;
+    height: 70px;
+    background: var(--gradient-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: var(--bg-primary);
+    z-index: 2;
+    transition: transform var(--transition-base);
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
+}
+
+.project-card:hover .thumbnail::after {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Card Content */
+.content {
+    padding: var(--space-xl);
+    background: var(--bg-secondary);
+}
+
+.content h3 {
+    margin: 0 0 var(--space-sm) 0;
+    font-size: 1.4rem;
+    font-weight: 700;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.content p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-md);
+    line-height: 1.6;
+}
+
+/* Tech Stack Badges */
+.tech-stack {
+    margin: var(--space-md) 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+}
+
+.tech-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: var(--radius-full);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: rgba(0, 240, 255, 0.1);
+    color: var(--accent-cyan);
+    border: 1px solid rgba(0, 240, 255, 0.2);
+    transition: all var(--transition-fast);
+}
+
+.tech-badge:hover {
+    background: var(--accent-cyan);
+    color: var(--bg-primary);
+}
+
+/* Different colors for different techs */
+.tech-badge:nth-child(2n) {
+    background: rgba(168, 85, 247, 0.1);
+    color: var(--accent-purple);
+    border-color: rgba(168, 85, 247, 0.2);
+}
+
+.tech-badge:nth-child(2n):hover {
+    background: var(--accent-purple);
+    color: var(--bg-primary);
+}
+
+.tech-badge:nth-child(3n) {
+    background: rgba(236, 72, 153, 0.1);
+    color: var(--accent-pink);
+    border-color: rgba(236, 72, 153, 0.2);
+}
+
+.tech-badge:nth-child(3n):hover {
+    background: var(--accent-pink);
+    color: var(--bg-primary);
+}
+
+/* Action Buttons */
+.actions {
+    display: flex;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
+}
+
+.actions .btn {
+    flex: 1;
+    text-align: center;
+    font-size: 0.85rem;
+    padding: var(--space-sm) var(--space-md);
+}
+
+.actions .btn i {
+    margin-right: var(--space-xs);
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+/* Staggered Card Entrance */
+.project-card {
+    opacity: 0;
+    animation: cardEntrance 0.6s ease forwards;
+}
+
+.project-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.project-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.project-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.project-card:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.project-card:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+.project-card:nth-child(6) {
+    animation-delay: 0.6s;
+}
+
+.project-card:nth-child(7) {
+    animation-delay: 0.7s;
+}
+
+.project-card:nth-child(8) {
+    animation-delay: 0.8s;
+}
+
+@keyframes cardEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+    }
+
+    .thumbnail {
+        height: 180px;
+    }
+
+    .content {
+        padding: var(--space-md);
+    }
+
+    .content h3 {
+        font-size: 1.2rem;
+    }
+
+    .actions {
+        flex-direction: column;
+    }
+
+    .actions .btn {
+        width: 100%;
+    }
+}

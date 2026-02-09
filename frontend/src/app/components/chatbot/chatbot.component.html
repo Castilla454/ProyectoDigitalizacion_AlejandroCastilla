@@ -1,0 +1,28 @@
+<div class="chatbot-container">
+    <!-- Chat Bubble -->
+    <button class="chat-bubble btn-primary" (click)="toggleChat()">
+        <i class="fas" [class.fa-comment-alt]="!isOpen" [class.fa-times]="isOpen"></i>
+    </button>
+
+    <!-- Chat Window -->
+    <div class="chat-window glass" *ngIf="isOpen">
+        <div class="chat-header">
+            <h4>Asistente Virtual</h4>
+        </div>
+
+        <div class="chat-messages">
+            <div *ngFor="let msg of messages" class="message" [ngClass]="msg.sender">
+                {{ msg.text }}
+            </div>
+            <div *ngIf="isLoading" class="message bot loading">
+                <span>.</span><span>.</span><span>.</span>
+            </div>
+        </div>
+
+        <div class="chat-options">
+            <button *ngFor="let opt of options" class="btn btn-outline btn-sm" (click)="selectOption(opt)">
+                {{ opt.label }}
+            </button>
+        </div>
+    </div>
+</div>
