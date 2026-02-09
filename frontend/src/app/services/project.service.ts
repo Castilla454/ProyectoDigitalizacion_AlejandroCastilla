@@ -13,11 +13,86 @@ export interface Project {
     codeUrl: string;
 }
 
+// Datos embebidos como fallback si la API no está disponible
+export const FALLBACK_PROJECTS: Project[] = [
+    {
+        id: 1,
+        title: "2048",
+        description: "El clásico juego de puzzles numéricos. Desliza y combina fichas para alcanzar 2048.",
+        thumbnail: "assets/img/2048.png",
+        technologies: ["HTML5", "CSS3", "JavaScript"],
+        playUrl: "http://localhost:3000/juegos/2048/index.html",
+        codeUrl: "https://github.com/Castilla454/ProyectoDigitalizacion_AlejandroCastilla/tree/main/juegos/2048"
+    },
+    {
+        id: 2,
+        title: "BlackJack",
+        description: "Juego de cartas BlackJack contra la máquina. ¿Llegarás a 21?",
+        thumbnail: "assets/img/blackjack.png",
+        technologies: ["HTML5", "CSS3", "JavaScript"],
+        playUrl: "http://localhost:3000/juegos/BlackJack/index.html",
+        codeUrl: "https://github.com/Castilla454/ProyectoDigitalizacion_AlejandroCastilla/tree/main/juegos/BlackJack"
+    },
+    {
+        id: 3,
+        title: "Conecta 4",
+        description: "El juego de estrategia donde debes alinear 4 fichas antes que tu oponente.",
+        thumbnail: "assets/img/conecta4.png",
+        technologies: ["HTML5", "CSS3", "JavaScript"],
+        playUrl: "http://localhost:3000/juegos/Conecta4/index.html",
+        codeUrl: "https://github.com/Castilla454/ProyectoDigitalizacion_AlejandroCastilla/tree/main/juegos/Conecta4"
+    },
+    {
+        id: 4,
+        title: "Juego de Memoria (Pokémon)",
+        description: "Encuentra las parejas de cartas Pokémon. ¡Pon a prueba tu memoria!",
+        thumbnail: "assets/img/memoria.png",
+        technologies: ["HTML5", "CSS3", "JavaScript"],
+        playUrl: "http://localhost:3000/juegos/JuegoMemoria/index.html",
+        codeUrl: "https://github.com/Castilla454/ProyectoDigitalizacion_AlejandroCastilla/tree/main/juegos/JuegoMemoria"
+    },
+    {
+        id: 5,
+        title: "Tic Tac Toe",
+        description: "El clásico Tres en Raya. Juega contra otro jugador.",
+        thumbnail: "assets/img/tictactoe.png",
+        technologies: ["HTML5", "CSS3", "JavaScript"],
+        playUrl: "http://localhost:3000/juegos/TicTacToe/index.html",
+        codeUrl: "https://github.com/Castilla454/ProyectoDigitalizacion_AlejandroCastilla/tree/main/juegos/TicTacToe"
+    },
+    {
+        id: 6,
+        title: "Wordle",
+        description: "Adivina la palabra secreta en 6 intentos. ¡El viral juego de palabras!",
+        thumbnail: "assets/img/wordle.png",
+        technologies: ["HTML5", "CSS3", "JavaScript"],
+        playUrl: "http://localhost:3000/juegos/Wordle/wordle.html",
+        codeUrl: "https://github.com/Castilla454/ProyectoDigitalizacion_AlejandroCastilla/tree/main/juegos/Wordle"
+    },
+    {
+        id: 7,
+        title: "Sudoku",
+        description: "El rompecabezas numérico por excelencia. Completa la cuadrícula 9x9.",
+        thumbnail: "assets/img/sudoku.png",
+        technologies: ["HTML5", "CSS3", "JavaScript"],
+        playUrl: "http://localhost:3000/juegos/SudokuDos/index.html",
+        codeUrl: "https://github.com/Castilla454/ProyectoDigitalizacion_AlejandroCastilla/tree/main/juegos/SudokuDos"
+    },
+    {
+        id: 8,
+        title: "Generador de Contraseñas",
+        description: "Herramienta para generar contraseñas seguras y aleatorias.",
+        thumbnail: "assets/img/password.png",
+        technologies: ["HTML5", "CSS3", "JavaScript"],
+        playUrl: "http://localhost:3000/juegos/GeneradorContraseñas/index.html",
+        codeUrl: "https://github.com/Castilla454/ProyectoDigitalizacion_AlejandroCastilla/tree/main/juegos/GeneradorContraseñas"
+    }
+];
+
 @Injectable({
     providedIn: 'root'
 })
 export class ProjectService {
-    // Assuming the node server runs on port 3000
     private apiUrl = 'http://localhost:3000/api/projects';
 
     constructor(private http: HttpClient) { }
@@ -25,8 +100,8 @@ export class ProjectService {
     getProjects(): Observable<Project[]> {
         return this.http.get<Project[]>(this.apiUrl).pipe(
             catchError(error => {
-                console.error('Error fetching projects', error);
-                return of([]);
+                console.warn('API no disponible, usando datos locales');
+                return of(FALLBACK_PROJECTS);
             })
         );
     }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Important for *ngFor
-import { Project, ProjectService } from '../../services/project.service';
+import { CommonModule } from '@angular/common';
+import { Project, ProjectService, FALLBACK_PROJECTS } from '../../services/project.service';
 
 @Component({
     selector: 'app-project-list',
@@ -10,13 +10,17 @@ import { Project, ProjectService } from '../../services/project.service';
     styleUrls: ['./project-list.component.css']
 })
 export class ProjectListComponent implements OnInit {
-    projects: Project[] = [];
+    // Inicializar con datos inmediatamente para que aparezcan al cargar
+    projects: Project[] = FALLBACK_PROJECTS;
 
     constructor(private projectService: ProjectService) { }
 
     ngOnInit(): void {
+        // Intentar cargar desde API, pero ya tenemos datos del fallback
         this.projectService.getProjects().subscribe(data => {
-            this.projects = data;
+            if (data && data.length > 0) {
+                this.projects = data;
+            }
         });
     }
 }

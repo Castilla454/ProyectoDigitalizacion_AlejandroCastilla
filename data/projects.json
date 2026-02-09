@@ -9,8 +9,8 @@
             "CSS3",
             "JavaScript"
         ],
-        "playUrl": "/juegos/2048/index.html",
-        "codeUrl": "#"
+        "playUrl": "http://localhost:3000/juegos/2048/index.html",
+        "codeUrl": "https://github.com/Castilla454/ProyectoDigitalizacion_AlejandroCastilla/tree/main/juegos/2048"
     },
     {
         "id": 2,
@@ -22,8 +22,8 @@
             "CSS3",
             "JavaScript"
         ],
-        "playUrl": "/juegos/BlackJack/index.html",
-        "codeUrl": "#"
+        "playUrl": "http://localhost:3000/juegos/BlackJack/index.html",
+        "codeUrl": "https://github.com/Castilla454/ProyectoDigitalizacion_AlejandroCastilla/tree/main/juegos/BlackJack"
     },
     {
         "id": 3,
@@ -35,8 +35,8 @@
             "CSS3",
             "JavaScript"
         ],
-        "playUrl": "/juegos/Conecta4/index.html",
-        "codeUrl": "#"
+        "playUrl": "http://localhost:3000/juegos/Conecta4/index.html",
+        "codeUrl": "https://github.com/Castilla454/ProyectoDigitalizacion_AlejandroCastilla/tree/main/juegos/Conecta4"
     },
     {
         "id": 4,
@@ -48,8 +48,8 @@
             "CSS3",
             "JavaScript"
         ],
-        "playUrl": "/juegos/JuegoMemoria/index.html",
-        "codeUrl": "#"
+        "playUrl": "http://localhost:3000/juegos/JuegoMemoria/index.html",
+        "codeUrl": "https://github.com/Castilla454/ProyectoDigitalizacion_AlejandroCastilla/tree/main/juegos/JuegoMemoria"
     },
     {
         "id": 5,
@@ -61,8 +61,8 @@
             "CSS3",
             "JavaScript"
         ],
-        "playUrl": "/juegos/TicTacToe/index.html",
-        "codeUrl": "#"
+        "playUrl": "http://localhost:3000/juegos/TicTacToe/index.html",
+        "codeUrl": "https://github.com/Castilla454/ProyectoDigitalizacion_AlejandroCastilla/tree/main/juegos/TicTacToe"
     },
     {
         "id": 6,
@@ -74,8 +74,8 @@
             "CSS3",
             "JavaScript"
         ],
-        "playUrl": "/juegos/Wordle/wordle.html",
-        "codeUrl": "#"
+        "playUrl": "http://localhost:3000/juegos/Wordle/wordle.html",
+        "codeUrl": "https://github.com/Castilla454/ProyectoDigitalizacion_AlejandroCastilla/tree/main/juegos/Wordle"
     },
     {
         "id": 7,
@@ -87,8 +87,8 @@
             "CSS3",
             "JavaScript"
         ],
-        "playUrl": "/juegos/SudokuDos/index.html",
-        "codeUrl": "#"
+        "playUrl": "http://localhost:3000/juegos/SudokuDos/index.html",
+        "codeUrl": "https://github.com/Castilla454/ProyectoDigitalizacion_AlejandroCastilla/tree/main/juegos/SudokuDos"
     },
     {
         "id": 8,
@@ -100,7 +100,7 @@
             "CSS3",
             "JavaScript"
         ],
-        "playUrl": "/juegos/GeneradorContraseñas/index.html",
-        "codeUrl": "#"
+        "playUrl": "http://localhost:3000/juegos/GeneradorContraseñas/index.html",
+        "codeUrl": "https://github.com/Castilla454/ProyectoDigitalizacion_AlejandroCastilla/tree/main/juegos/GeneradorContraseñas"
     }
 ]
