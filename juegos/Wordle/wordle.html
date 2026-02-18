@@ -1,23 +1,23 @@
-
-
-<html>
-    <head>
-        <title>Wordle</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale = 1.0">
-
-        <link rel="stylesheet" href="wordle.css">
-        <script src="wordle.js"></script>
-    </head>
-
-    <body>
-        <h1 id="title">Wordle</h1>
-        <hr>
-        <br>
-        <div id="board">
-        </div>
-
-        <br>
-        <h1 id="answer"></h1>
-    </body>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wordle - GameDev Portfolio</title>
+    <link rel="stylesheet" href="../shared-game-styles.css">
+    <link rel="stylesheet" href="wordle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <div class="game-topbar">
+        <a href="/" class="back-link"><i class="fas fa-arrow-left"></i> Portfolio</a>
+        <span class="game-title">Wordle</span>
+        <button class="btn-new-game" onclick="location.reload()" style="font-size:0.8rem;padding:8px 16px"><i class="fas fa-redo"></i> Nueva</button>
+    </div>
+    <div class="game-container">
+        <div id="board"></div>
+        <h2 id="answer" class="game-result"></h2>
+    </div>
+    <script src="wordle.js"></script>
+</body>
 </html>

@@ -1,46 +1,52 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-        <title>Password Generator</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <title>Generador de Contraseñas - GameDev Portfolio</title>
+    <link rel="stylesheet" href="../shared-game-styles.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <div class="game-topbar">
+        <a href="/" class="back-link"><i class="fas fa-arrow-left"></i> Portfolio</a>
+        <span class="game-title">Generador Contraseñas</span>
+        <div class="score-display"><i class="fas fa-key"></i></div>
+    </div>
+    <div class="game-container">
         <div id="password-generator">
-            <div id="password"> 
-                <input type="text" id="result" value="password" readonly/> 
-                <button id="copy-button">COPY</button> 
-            </div> 
+            <div id="password">
+                <input type="text" id="result" value="password" readonly/>
+                <button id="copy-button"><i class="fas fa-copy"></i> COPIAR</button>
+            </div>
 
-            <label for="password-length">Password Length:</label>
+            <label for="password-length"><i class="fas fa-ruler-horizontal"></i> Longitud:</label>
             <input type="range" min="8" max="32" value="8" name="password-length"
             id="password-length" oninput="this.nextElementSibling.value = this.value">
             <output>8</output>
 
-            <div id="options"> 
-                <label> 
-                    <input type="checkbox" id="lowercase-option" /> 
-                    <span>Lower (a-z)</span> 
-                </label> 
-
-                <label> 
-                    <input type="checkbox" id="uppercase-option" /> 
-                    <span>Upper (A-Z)</span> 
-                </label> 
-
-                <label> 
-                    <input type="checkbox" id="number-option" /> 
-                    <span>Number (0-9)</span> 
-                </label> 
-
-                <label> 
-                    <input type="checkbox" id="special-option" /> 
-                    <span>Symbol (!@$#%)</span> 
-                </label> 
+            <div id="options">
+                <label>
+                    <input type="checkbox" id="lowercase-option" />
+                    <span>Minúsculas (a-z)</span>
+                </label>
+                <label>
+                    <input type="checkbox" id="uppercase-option" />
+                    <span>Mayúsculas (A-Z)</span>
+                </label>
+                <label>
+                    <input type="checkbox" id="number-option" />
+                    <span>Números (0-9)</span>
+                </label>
+                <label>
+                    <input type="checkbox" id="special-option" />
+                    <span>Símbolos (!@$#%)</span>
+                </label>
             </div>
-            <button id="generate-button">GENERATE</button>
+            <button id="generate-button"><i class="fas fa-bolt"></i> GENERAR</button>
         </div>
-        <script src="password_generator.js"></script>
-    </body>
+    </div>
+    <script src="password_generator.js"></script>
+</body>
 </html>

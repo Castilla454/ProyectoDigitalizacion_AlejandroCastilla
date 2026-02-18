@@ -1,46 +1,49 @@
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
-}
-
-hr {
-    width: 500px;
-    height: 2px;
-    background-color: black;
-}
-
+/* TicTacToe Cyberpunk Theme */
 
 #board {
-    width: 450px;
-    height: 450px;
-    /* background-color: gray; */
+    width: 360px;
+    height: 360px;
     margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
 }
 
 .tile {
-    width: 147px;
-    height: 147px;
-    
-    /* Text */
-    font-size: 150px;
+    width: 120px;
+    height: 120px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 800;
     display: flex;
-    justify-content: center; 
-    align-items: center;    
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background: var(--glass-bg);
+    color: var(--accent-cyan);
+    transition: all 0.2s;
+}
+
+.tile:hover {
+    background: rgba(0, 240, 255, 0.05);
 }
 
 .winner {
-    background-color: lightgray;
-    color: red;
+    background: rgba(0, 240, 255, 0.1) !important;
+    color: var(--accent-pink) !important;
+    animation: pulse 0.8s infinite;
 }
 
-
 .horizontal-line {
-    border-bottom: 3px solid black;
+    border-bottom: 2px solid var(--glass-border);
 }
 
 .vertical-line {
-    border-right: 3px solid black;
+    border-right: 2px solid var(--glass-border);
+}
+
+@media (max-width: 450px) {
+    #board { width: 300px; height: 300px; }
+    .tile { width: 100px; height: 100px; font-size: 2.8rem; }
 }
 

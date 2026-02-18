@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
     providedIn: 'root'
 })
 export class ChatService {
-    private apiUrl = 'http://localhost:3000/api/chatbot';
+    private apiUrl = '/api/chatbot';
 
     constructor(private http: HttpClient) { }
 

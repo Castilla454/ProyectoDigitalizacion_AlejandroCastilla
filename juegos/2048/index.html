@@ -1,18 +1,38 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>2048</title>
-        <link rel="stylesheet" href="2048.css">
-        <script src="2048.js"></script>
-    </head>
-
-    <body>
-        <h1>2048</h1>
-        <hr>
-        <h2>Score: <span id="score">0</span></h2>
-        <div id="board">
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2048 - GameDev Portfolio</title>
+    <link rel="stylesheet" href="../shared-game-styles.css">
+    <link rel="stylesheet" href="2048.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <div class="game-topbar">
+        <a href="/" class="back-link"><i class="fas fa-arrow-left"></i> Portfolio</a>
+        <span class="game-title">2048</span>
+        <div class="score-display">Score: <span id="score">0</span></div>
+    </div>
+    <div class="game-container">
+        <div class="game-info">
+            <span class="game-status" id="status">Usa las flechas del teclado</span>
+            <button class="btn-new-game" onclick="resetGame()"><i class="fas fa-redo"></i> Nueva Partida</button>
         </div>
-    </body>
+        <div id="board"></div>
+    </div>
+    <div class="result-modal" id="resultModal">
+        <div class="modal-content">
+            <div class="modal-icon">🏆</div>
+            <div class="modal-title" id="modalTitle">Game Over</div>
+            <div class="modal-message" id="modalMessage">No hay más movimientos posibles</div>
+            <div class="modal-score" id="modalScore">0</div>
+            <div class="modal-actions">
+                <button class="btn-play-again" onclick="resetGame()"><i class="fas fa-redo"></i> Jugar de nuevo</button>
+                <a href="/" class="btn-back"><i class="fas fa-home"></i> Volver al Portfolio</a>
+            </div>
+        </div>
+    </div>
+    <script src="2048.js"></script>
+</body>
 </html>

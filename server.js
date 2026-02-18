@@ -4,19 +4,21 @@ const path = require('path');
 const cors = require('cors');
 const { Pool } = require('pg');
 const fs = require('fs');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const JWT_SECRET = process.env.JWT_SECRET || 'default_secret_change_me';
 
 // ========================================
 // PostgreSQL Connection
 // ========================================
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
-    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+    ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false
 });
 
-// Test database connection
 pool.connect()
     .then(client => {
         console.log('✅ Connected to PostgreSQL database');
@@ -32,10 +34,173 @@ pool.connect()
 app.use(cors());
 app.use(express.json());
 
+// Auth middleware - extracts user from JWT if present
+function authOptional(req, res, next) {
+    const authHeader = req.headers.authorization;
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+        const token = authHeader.split(' ')[1];
+        try {
+            const decoded = jwt.verify(token, JWT_SECRET);
+            req.user = decoded;
+        } catch (err) {
+            // Token invalid, continue without user
+        }
+    }
+    next();
+}
+
+// Auth middleware - requires valid JWT
+function authRequired(req, res, next) {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        return res.status(401).json({ error: 'Acceso no autorizado. Inicia sesión.' });
+    }
+    const token = authHeader.split(' ')[1];
+    try {
+        const decoded = jwt.verify(token, JWT_SECRET);
+        req.user = decoded;
+        next();
+    } catch (err) {
+        return res.status(401).json({ error: 'Token inválido o expirado.' });
+    }
+}
+
 // ========================================
 // Mock Data (Fallback if no DB)
 // ========================================
 const projects = require('./data/projects.json');
+
+// ========================================
+// API Routes - Auth
+// ========================================
+
+// Register
+app.post('/api/auth/register', async (req, res) => {
+    const { username, email, password, displayName } = req.body;
+
+    if (!username || !email || !password) {
+        return res.status(400).json({ error: 'Faltan campos obligatorios: username, email, password' });
+    }
+
+    if (password.length < 6) {
+        return res.status(400).json({ error: 'La contraseña debe tener al menos 6 caracteres' });
+    }
+
+    try {
+        // Check if user exists
+        const existing = await pool.query(
+            'SELECT id FROM users WHERE email = $1 OR username = $2',
+            [email, username]
+        );
+        if (existing.rows.length > 0) {
+            return res.status(409).json({ error: 'El usuario o email ya existe' });
+        }
+
+        const salt = await bcrypt.genSalt(10);
+        const passwordHash = await bcrypt.hash(password, salt);
+
+        const result = await pool.query(
+            `INSERT INTO users (username, email, password_hash, display_name)
+             VALUES ($1, $2, $3, $4)
+             RETURNING id, username, email, display_name, role, created_at`,
+            [username, email, passwordHash, displayName || username]
+        );
+
+        const user = result.rows[0];
+        const token = jwt.sign(
+            { id: user.id, username: user.username, email: user.email, role: user.role },
+            JWT_SECRET,
+            { expiresIn: '7d' }
+        );
+
+        res.status(201).json({
+            token,
+            user: {
+                id: user.id,
+                username: user.username,
+                email: user.email,
+                displayName: user.display_name,
+                role: user.role
+            }
+        });
+    } catch (err) {
+        console.error('Error en registro:', err);
+        res.status(500).json({ error: 'Error del servidor', message: err.message });
+    }
+});
+
+// Login
+app.post('/api/auth/login', async (req, res) => {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+        return res.status(400).json({ error: 'Faltan campos: email y password' });
+    }
+
+    try {
+        const result = await pool.query(
+            'SELECT * FROM users WHERE email = $1',
+            [email]
+        );
+
+        if (result.rows.length === 0) {
+            return res.status(401).json({ error: 'Credenciales incorrectas' });
+        }
+
+        const user = result.rows[0];
+        const validPassword = await bcrypt.compare(password, user.password_hash);
+
+        if (!validPassword) {
+            return res.status(401).json({ error: 'Credenciales incorrectas' });
+        }
+
+        const token = jwt.sign(
+            { id: user.id, username: user.username, email: user.email, role: user.role },
+            JWT_SECRET,
+            { expiresIn: '7d' }
+        );
+
+        res.json({
+            token,
+            user: {
+                id: user.id,
+                username: user.username,
+                email: user.email,
+                displayName: user.display_name,
+                role: user.role
+            }
+        });
+    } catch (err) {
+        console.error('Error en login:', err);
+        res.status(500).json({ error: 'Error del servidor', message: err.message });
+    }
+});
+
+// Get profile
+app.get('/api/auth/profile', authRequired, async (req, res) => {
+    try {
+        const result = await pool.query(
+            `SELECT id, username, email, display_name, avatar_url, role, created_at
+             FROM users WHERE id = $1`,
+            [req.user.id]
+        );
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Usuario no encontrado' });
+        }
+        const user = result.rows[0];
+        res.json({
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            displayName: user.display_name,
+            avatarUrl: user.avatar_url,
+            role: user.role,
+            createdAt: user.created_at
+        });
+    } catch (err) {
+        res.status(500).json({ error: 'Error del servidor' });
+    }
+});
 
 // ========================================
 // API Routes - Projects
@@ -218,10 +383,13 @@ app.get('/api/ratings/:gameId', async (req, res) => {
         );
 
         const recent = await pool.query(
-            `SELECT rating, comment, player_name, created_at
-             FROM game_ratings 
-             WHERE game_id = $1 
-             ORDER BY created_at DESC 
+            `SELECT gr.rating, gr.comment, 
+                    COALESCE(u.display_name, gr.player_name, 'Anónimo') as player_name,
+                    gr.created_at
+             FROM game_ratings gr
+             LEFT JOIN users u ON gr.user_id = u.id
+             WHERE gr.game_id = $1 
+             ORDER BY gr.created_at DESC 
              LIMIT 10`,
             [gameId]
         );
@@ -236,24 +404,28 @@ app.get('/api/ratings/:gameId', async (req, res) => {
     }
 });
 
-// Submit a rating
-app.post('/api/ratings', async (req, res) => {
-    const { gameId, rating, comment, playerName } = req.body;
+// Submit a rating (requires auth)
+app.post('/api/ratings', authRequired, async (req, res) => {
+    const { gameId, rating, comment } = req.body;
 
     if (!gameId || !rating) {
-        return res.status(400).json({ error: 'Missing required fields: gameId, rating' });
+        return res.status(400).json({ error: 'Faltan campos: gameId, rating' });
     }
 
     if (rating < 1 || rating > 5) {
-        return res.status(400).json({ error: 'Rating must be between 1 and 5' });
+        return res.status(400).json({ error: 'La valoración debe ser entre 1 y 5' });
     }
 
     try {
         const result = await pool.query(
-            `INSERT INTO game_ratings (game_id, rating, comment, player_name)
-             VALUES ($1, $2, $3, $4)
+            `INSERT INTO game_ratings (game_id, user_id, rating, comment, player_name)
+             VALUES ($1, $2, $3, $4, $5)
+             ON CONFLICT (game_id, user_id) DO UPDATE SET
+               rating = $3,
+               comment = $4,
+               created_at = CURRENT_TIMESTAMP
              RETURNING *`,
-            [gameId, rating, comment || null, playerName || 'Anónimo']
+            [gameId, req.user.id, rating, comment || null, req.user.username]
         );
         res.status(201).json(result.rows[0]);
     } catch (err) {

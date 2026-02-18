@@ -21,7 +21,7 @@ export const FALLBACK_PROJECTS: Project[] = [
         description: "El clásico juego de puzzles numéricos. Desliza y combina fichas para alcanzar 2048.",
         thumbnail: "assets/img/2048.png",
         technologies: ["HTML5", "CSS3", "JavaScript"],
-        playUrl: "http://localhost:3000/juegos/2048/index.html",
+        playUrl: "/juegos/2048/index.html",
         codeUrl: "https://github.com/Castilla454/ProyectoDigitalizacion_AlejandroCastilla/tree/main/juegos/2048"
     },
     {
@@ -30,7 +30,7 @@ export const FALLBACK_PROJECTS: Project[] = [
         description: "Juego de cartas BlackJack contra la máquina. ¿Llegarás a 21?",
         thumbnail: "assets/img/blackjack.png",
         technologies: ["HTML5", "CSS3", "JavaScript"],
-        playUrl: "http://localhost:3000/juegos/BlackJack/index.html",
+        playUrl: "/juegos/BlackJack/index.html",
         codeUrl: "https://github.com/Castilla454/ProyectoDigitalizacion_AlejandroCastilla/tree/main/juegos/BlackJack"
     },
     {
@@ -39,7 +39,7 @@ export const FALLBACK_PROJECTS: Project[] = [
         description: "El juego de estrategia donde debes alinear 4 fichas antes que tu oponente.",
         thumbnail: "assets/img/conecta4.png",
         technologies: ["HTML5", "CSS3", "JavaScript"],
-        playUrl: "http://localhost:3000/juegos/Conecta4/index.html",
+        playUrl: "/juegos/Conecta4/index.html",
         codeUrl: "https://github.com/Castilla454/ProyectoDigitalizacion_AlejandroCastilla/tree/main/juegos/Conecta4"
     },
     {
@@ -48,7 +48,7 @@ export const FALLBACK_PROJECTS: Project[] = [
         description: "Encuentra las parejas de cartas Pokémon. ¡Pon a prueba tu memoria!",
         thumbnail: "assets/img/memoria.png",
         technologies: ["HTML5", "CSS3", "JavaScript"],
-        playUrl: "http://localhost:3000/juegos/JuegoMemoria/index.html",
+        playUrl: "/juegos/JuegoMemoria/index.html",
         codeUrl: "https://github.com/Castilla454/ProyectoDigitalizacion_AlejandroCastilla/tree/main/juegos/JuegoMemoria"
     },
     {
@@ -57,7 +57,7 @@ export const FALLBACK_PROJECTS: Project[] = [
         description: "El clásico Tres en Raya. Juega contra otro jugador.",
         thumbnail: "assets/img/tictactoe.png",
         technologies: ["HTML5", "CSS3", "JavaScript"],
-        playUrl: "http://localhost:3000/juegos/TicTacToe/index.html",
+        playUrl: "/juegos/TicTacToe/index.html",
         codeUrl: "https://github.com/Castilla454/ProyectoDigitalizacion_AlejandroCastilla/tree/main/juegos/TicTacToe"
     },
     {
@@ -66,7 +66,7 @@ export const FALLBACK_PROJECTS: Project[] = [
         description: "Adivina la palabra secreta en 6 intentos. ¡El viral juego de palabras!",
         thumbnail: "assets/img/wordle.png",
         technologies: ["HTML5", "CSS3", "JavaScript"],
-        playUrl: "http://localhost:3000/juegos/Wordle/wordle.html",
+        playUrl: "/juegos/Wordle/wordle.html",
         codeUrl: "https://github.com/Castilla454/ProyectoDigitalizacion_AlejandroCastilla/tree/main/juegos/Wordle"
     },
     {
@@ -75,7 +75,7 @@ export const FALLBACK_PROJECTS: Project[] = [
         description: "El rompecabezas numérico por excelencia. Completa la cuadrícula 9x9.",
         thumbnail: "assets/img/sudoku.png",
         technologies: ["HTML5", "CSS3", "JavaScript"],
-        playUrl: "http://localhost:3000/juegos/SudokuDos/index.html",
+        playUrl: "/juegos/SudokuDos/index.html",
         codeUrl: "https://github.com/Castilla454/ProyectoDigitalizacion_AlejandroCastilla/tree/main/juegos/SudokuDos"
     },
     {
@@ -84,7 +84,7 @@ export const FALLBACK_PROJECTS: Project[] = [
         description: "Herramienta para generar contraseñas seguras y aleatorias.",
         thumbnail: "assets/img/password.png",
         technologies: ["HTML5", "CSS3", "JavaScript"],
-        playUrl: "http://localhost:3000/juegos/GeneradorContraseñas/index.html",
+        playUrl: "/juegos/GeneradorContraseñas/index.html",
         codeUrl: "https://github.com/Castilla454/ProyectoDigitalizacion_AlejandroCastilla/tree/main/juegos/GeneradorContraseñas"
     }
 ];
@@ -93,7 +93,7 @@ export const FALLBACK_PROJECTS: Project[] = [
     providedIn: 'root'
 })
 export class ProjectService {
-    private apiUrl = 'http://localhost:3000/api/projects';
+    private apiUrl = '/api/projects';
 
     constructor(private http: HttpClient) { }
 

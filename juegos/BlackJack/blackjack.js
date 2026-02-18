@@ -10,7 +10,26 @@ let deck;
 let canHit = true;
 
 window.onload = function () {
+    buildDeck();
+    shuffleDeck();
+    startGame();
+}
 
+function resetGame() {
+    dealerSum = 0;
+    yourSum = 0;
+    dealerAceCount = 0;
+    yourAceCount = 0;
+    canHit = true;
+    document.getElementById("dealer-cards").innerHTML = '<img id="hidden" src="./cards/BACK.png">';
+    document.getElementById("your-cards").innerHTML = '';
+    document.getElementById("dealer-sum").innerText = '';
+    document.getElementById("your-sum").innerText = '';
+    document.getElementById("results").innerText = '';
+    document.getElementById("results").className = 'game-result';
+    document.getElementById("hit").style.display = '';
+    document.getElementById("stay").style.display = '';
+    document.getElementById("newGame").style.display = 'none';
     buildDeck();
     shuffleDeck();
     startGame();
@@ -109,32 +128,35 @@ function stay() {
     dealerSum = reduceAce(dealerSum, dealerAceCount);
     yourSum = reduceAce(yourSum, yourAceCount);
 
-
     canHit = false;
     document.getElementById("hidden").src = "./cards/" + hidden + ".png";
     let message = "";
+    let resultClass = "";
     if (yourSum > 21) {
-
-        message = "you lose!";
-
+        message = "💀 ¡Te has pasado!";
+        resultClass = "lose";
     } else if (dealerSum > 21) {
-
-        message = "You win!";
+        message = "🎉 ¡Has ganado!";
+        resultClass = "win";
     } else if (yourSum == dealerSum) {
-
-        message = "tie!";
-
+        message = "🤝 ¡Empate!";
+        resultClass = "tie";
     } else if (yourSum > dealerSum) {
-
-        message = "You Win!";
+        message = "🎉 ¡Has ganado!";
+        resultClass = "win";
     } else if (yourSum < dealerSum) {
-
-        message = "You Lose!";
+        message = "💀 ¡Has perdido!";
+        resultClass = "lose";
     }
 
     document.getElementById("dealer-sum").innerText = dealerSum;
     document.getElementById("your-sum").innerText = yourSum;
-    document.getElementById("results").innerText = message;
+    let resultsEl = document.getElementById("results");
+    resultsEl.innerText = message;
+    resultsEl.className = "game-result " + resultClass;
+    document.getElementById("hit").style.display = "none";
+    document.getElementById("stay").style.display = "none";
+    document.getElementById("newGame").style.display = "";
 }
 
 

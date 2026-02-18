@@ -1,16 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Connect 4</title>
+    <title>Conecta 4 - GameDev Portfolio</title>
+    <link rel="stylesheet" href="../shared-game-styles.css">
     <link rel="stylesheet" href="connect4.css">
-    <script src="connect4.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-    <h1>Connect 4</h1>
-    <h2 id="winner"></h2>
-    <div id="board"></div>
+    <div class="game-topbar">
+        <a href="/" class="back-link"><i class="fas fa-arrow-left"></i> Portfolio</a>
+        <span class="game-title">Conecta 4</span>
+        <button class="btn-new-game" onclick="resetGame()" style="font-size:0.8rem;padding:8px 16px"><i class="fas fa-redo"></i> Nueva</button>
+    </div>
+    <div class="game-container">
+        <div class="game-status" id="winner">🔴 Turno de Rojo</div>
+        <div id="board"></div>
+    </div>
+    <script src="connect4.js"></script>
 </body>
 </html>

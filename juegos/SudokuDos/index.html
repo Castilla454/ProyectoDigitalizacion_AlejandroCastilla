@@ -1,25 +1,23 @@
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width initial-scale=1.0 user-scalable=no">
-        <title>Sudoku</title>
-
-        <link rel="stylesheet" href="sudoku.css">
-        <script src="sudoku.js"></script>
-    </head>
-
-    <body>
-        <h1>Sudoku</h1>
-        <hr>
-        <h2 id="errors">0</h2>
-
-        <!-- 9x9 board -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Sudoku - GameDev Portfolio</title>
+    <link rel="stylesheet" href="../shared-game-styles.css">
+    <link rel="stylesheet" href="sudoku.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <div class="game-topbar">
+        <a href="/" class="back-link"><i class="fas fa-arrow-left"></i> Portfolio</a>
+        <span class="game-title">Sudoku</span>
+        <div class="score-display">Errores: <span id="errors">0</span></div>
+    </div>
+    <div class="game-container">
         <div id="board"></div>
-        <br>
-        <div id="digits">
-        </div>
-
-    </body>
-
-
+        <div id="digits"></div>
+    </div>
+    <script src="sudoku.js"></script>
+</body>
 </html>

@@ -1,25 +1,38 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Black Jack</title>
-        <link rel="stylesheet" href="blackjack.css">
-        <script src="blackjack.js"></script>
-    </head>
-
-    <body>
-        <h2>Dealer: <span id="dealer-sum"></span></h2>
-        <div id="dealer-cards">
-            <img id="hidden" src="./cards/BACK.png">
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackJack - GameDev Portfolio</title>
+    <link rel="stylesheet" href="../shared-game-styles.css">
+    <link rel="stylesheet" href="blackjack.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <div class="game-topbar">
+        <a href="/" class="back-link"><i class="fas fa-arrow-left"></i> Portfolio</a>
+        <span class="game-title">BlackJack</span>
+        <div class="score-display"><i class="fas fa-trophy"></i></div>
+    </div>
+    <div class="game-container">
+        <div class="hand-section">
+            <h2 class="hand-label">Dealer: <span id="dealer-sum" class="sum-value"></span></h2>
+            <div id="dealer-cards" class="cards-row">
+                <img id="hidden" src="./cards/BACK.png">
+            </div>
         </div>
-
-        <h2>You: <span id="your-sum"></span></h2>
-        <div id="your-cards"></div>
-
-        <br>
-        <button id="hit">Hit</button>
-        <button id="stay">Stay</button>
-        <p id="results"></p>
-    </body>
+        <div class="vs-divider">VS</div>
+        <div class="hand-section player-hand">
+            <h2 class="hand-label">Tú: <span id="your-sum" class="sum-value"></span></h2>
+            <div id="your-cards" class="cards-row"></div>
+        </div>
+        <div class="game-actions">
+            <button id="hit" class="btn-game btn-hit"><i class="fas fa-plus"></i> Pedir</button>
+            <button id="stay" class="btn-game btn-stay"><i class="fas fa-hand"></i> Plantarse</button>
+            <button id="newGame" class="btn-new-game" onclick="resetGame()" style="display:none"><i class="fas fa-redo"></i> Nueva Partida</button>
+        </div>
+        <p id="results" class="game-result"></p>
+    </div>
+    <script src="blackjack.js"></script>
+</body>
 </html>

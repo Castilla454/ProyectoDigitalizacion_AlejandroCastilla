@@ -1,0 +1,204 @@
+/* ========================================
+   GAME RATING COMPONENT
+   ======================================== */
+
+.rating-wrapper {
+    margin-top: var(--space-md);
+    border-top: 1px solid var(--glass-border);
+    padding-top: var(--space-md);
+}
+
+/* Summary row */
+.rating-summary {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    cursor: pointer;
+    padding: var(--space-xs) 0;
+    transition: all var(--transition-fast);
+}
+
+.rating-summary:hover {
+    opacity: 0.8;
+}
+
+.stars-display {
+    display: flex;
+    gap: 2px;
+}
+
+.star-icon {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.star-icon.filled {
+    color: #fbbf24;
+}
+
+.rating-text {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.toggle-icon {
+    margin-left: auto;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    transition: transform var(--transition-fast);
+}
+
+.toggle-icon.open {
+    transform: rotate(180deg);
+}
+
+/* Panel */
+.rating-panel {
+    margin-top: var(--space-md);
+    padding: var(--space-md);
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: var(--radius-md);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Rate section */
+.rate-section h4,
+.reviews-section h4 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-sm);
+}
+
+.star-input {
+    display: flex;
+    gap: 4px;
+    margin-bottom: var(--space-sm);
+}
+
+.star-btn {
+    font-size: 1.4rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.star-btn.active {
+    color: #fbbf24;
+    text-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
+}
+
+.star-btn:hover {
+    transform: scale(1.2);
+}
+
+.comment-input {
+    width: 100%;
+    padding: var(--space-sm);
+    background: var(--bg-primary);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    resize: none;
+    outline: none;
+    margin-bottom: var(--space-sm);
+}
+
+.comment-input:focus {
+    border-color: var(--accent-cyan);
+}
+
+.btn-sm-rating {
+    font-size: 0.8rem;
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-sm);
+}
+
+.success-msg {
+    margin-top: var(--space-sm);
+    font-size: 0.8rem;
+    color: #22c55e;
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+/* Login prompt */
+.login-prompt {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-md);
+    background: rgba(0, 240, 255, 0.05);
+    border: 1px solid rgba(0, 240, 255, 0.15);
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.login-prompt i {
+    color: var(--accent-cyan);
+}
+
+/* Reviews */
+.reviews-section {
+    margin-top: var(--space-lg);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--glass-border);
+}
+
+.review {
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.review:last-child {
+    border-bottom: none;
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+}
+
+.review-stars {
+    display: flex;
+    gap: 1px;
+}
+
+.star-mini {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+}
+
+.star-mini.filled {
+    color: #fbbf24;
+}
+
+.review-author {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.review-date {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-left: auto;
+}
+
+.review-comment {
+    margin-top: var(--space-xs);
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}

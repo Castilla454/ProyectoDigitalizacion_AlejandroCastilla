@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { ProjectListComponent } from './components/project-list/project-list.component';
-import { ChatbotComponent } from './components/chatbot/chatbot.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @Component({
   selector: 'app-root',
-  standalone: true, // Angular 17+ default
-  imports: [CommonModule, RouterOutlet, ProjectListComponent, ChatbotComponent],
+  standalone: true,
+  imports: [CommonModule, RouterOutlet, NavbarComponent],
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })

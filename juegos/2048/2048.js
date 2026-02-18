@@ -2,12 +2,46 @@ let board;
 let score = 0;
 let rows = 4;
 let columns = 4;
+let gameOver = false;
 
 window.onload = function () {
-
-
     setGame();
+}
 
+function resetGame() {
+    score = 0;
+    gameOver = false;
+    document.getElementById("score").innerText = "0";
+    document.getElementById("board").innerHTML = "";
+    document.getElementById("resultModal").classList.remove("active");
+    let statusEl = document.getElementById("status");
+    if (statusEl) statusEl.textContent = "Usa las flechas del teclado";
+    setGame();
+}
+
+function showResult(title, message) {
+    document.getElementById("modalTitle").textContent = title;
+    document.getElementById("modalMessage").textContent = message;
+    document.getElementById("modalScore").textContent = score;
+    document.getElementById("resultModal").classList.add("active");
+}
+
+function checkGameOver() {
+    if (hasEmptyTile()) return false;
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < columns; c++) {
+            if (c < columns - 1 && board[r][c] === board[r][c + 1]) return false;
+            if (r < rows - 1 && board[r][c] === board[r + 1][c]) return false;
+        }
+    }
+    return true;
+}
+
+function checkWin() {
+    for (let r = 0; r < rows; r++)
+        for (let c = 0; c < columns; c++)
+            if (board[r][c] === 2048) return true;
+    return false;
 }
 function setGame() {
 
@@ -124,27 +158,33 @@ function updateTile(tile, num) {
 
 
 document.addEventListener("keyup", (e => {
+    if (gameOver) return;
+
+    let moved = false;
+    let prevBoard = JSON.stringify(board);
 
     if (e.code == "ArrowLeft") {
-
         slideLeft();
-         setTwo();
     } else if (e.code == "ArrowRight") {
-
         slideRight();
-         setTwo();
     } else if (e.code == "ArrowUp") {
-
         slideUp();
-         setTwo();
     } else if (e.code == "ArrowDown") {
-
         slideDown();
-         setTwo();
     }
 
+    moved = JSON.stringify(board) !== prevBoard;
+    if (moved) setTwo();
 
     document.getElementById("score").innerText = score;
+
+    if (checkWin()) {
+        gameOver = true;
+        showResult("🎉 ¡Victoria!", "¡Has llegado a 2048!");
+    } else if (checkGameOver()) {
+        gameOver = true;
+        showResult("Game Over", "No hay más movimientos posibles");
+    }
 }));
 
 

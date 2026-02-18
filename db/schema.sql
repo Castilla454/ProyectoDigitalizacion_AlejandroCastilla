@@ -2,8 +2,23 @@
 -- PORTFOLIO GAMES - PostgreSQL Schema
 -- ========================================
 
--- Enable UUID extension if needed
--- CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+-- ========================================
+-- USERS TABLE - Authentication
+-- ========================================
+CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    display_name VARCHAR(100),
+    avatar_url VARCHAR(500),
+    role VARCHAR(20) DEFAULT 'user' CHECK (role IN ('user', 'admin')),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
+CREATE INDEX IF NOT EXISTS idx_users_username ON users(username);
 
 -- ========================================
 -- SCORES TABLE - Game Leaderboard
@@ -12,15 +27,16 @@ CREATE TABLE IF NOT EXISTS scores (
     id SERIAL PRIMARY KEY,
     game_id VARCHAR(50) NOT NULL,
     player_name VARCHAR(100) NOT NULL,
+    user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
     score INTEGER NOT NULL,
     play_duration_seconds INTEGER,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
--- Indexes for performance
 CREATE INDEX IF NOT EXISTS idx_scores_game_id ON scores(game_id);
 CREATE INDEX IF NOT EXISTS idx_scores_score ON scores(score DESC);
 CREATE INDEX IF NOT EXISTS idx_scores_created_at ON scores(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_scores_user_id ON scores(user_id);
 
 -- ========================================
 -- GAME ANALYTICS TABLE
@@ -43,13 +59,16 @@ CREATE TABLE IF NOT EXISTS game_analytics (
 CREATE TABLE IF NOT EXISTS game_ratings (
     id SERIAL PRIMARY KEY,
     game_id VARCHAR(50) NOT NULL,
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     rating INTEGER CHECK (rating >= 1 AND rating <= 5),
     comment TEXT,
     player_name VARCHAR(100),
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(game_id, user_id)
 );
 
 CREATE INDEX IF NOT EXISTS idx_ratings_game_id ON game_ratings(game_id);
+CREATE INDEX IF NOT EXISTS idx_ratings_user_id ON game_ratings(user_id);
 
 -- ========================================
 -- CHATBOT MESSAGES LOG

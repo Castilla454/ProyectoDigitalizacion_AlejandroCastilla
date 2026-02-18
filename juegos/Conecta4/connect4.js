@@ -7,9 +7,18 @@ var board;
 
 var rows = 6;
 var columns = 7;
-var currColumns = []; //keeps track of which row each column is at.
+var currColumns = [];
 
 window.onload = function() {
+    setGame();
+}
+
+function resetGame() {
+    gameOver = false;
+    currPlayer = playerRed;
+    document.getElementById("board").innerHTML = '';
+    document.getElementById("winner").innerText = '🔴 Turno de Rojo';
+    document.getElementById("winner").className = 'game-status';
     setGame();
 }
 
@@ -55,10 +64,12 @@ function setPiece() {
     if (currPlayer == playerRed) {
         tile.classList.add("red-piece");
         currPlayer = playerYellow;
+        document.getElementById("winner").innerText = "🟡 Turno de Amarillo";
     }
     else {
         tile.classList.add("yellow-piece");
         currPlayer = playerRed;
+        document.getElementById("winner").innerText = "🔴 Turno de Rojo";
     }
 
     r -= 1; //update the row height for that column
@@ -120,9 +131,9 @@ function checkWinner() {
 function setWinner(r, c) {
     let winner = document.getElementById("winner");
     if (board[r][c] == playerRed) {
-        winner.innerText = "Red Wins";             
+        winner.innerText = "🎉 ¡Gana Rojo!";
     } else {
-        winner.innerText = "Yellow Wins";
+        winner.innerText = "🎉 ¡Gana Amarillo!";
     }
     gameOver = true;
 }

@@ -1,94 +1,116 @@
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
-}
-
-hr {
-    width: 500px;
-}
-
-#title {
-    font-size: 36px;
-    font-weight: bold;
-    letter-spacing: 2px;
-}
+/* Wordle Cyberpunk Theme */
 
 #board {
     width: 350px;
     height: 420px;
     margin: 0 auto;
-    margin-top: 3px;
     display: flex;
     flex-wrap: wrap;
 }
 
 .tile {
-    /* Box */
-    border: 2px solid lightgray;
+    border: 2px solid var(--glass-border);
     width: 60px;
     height: 60px;
     margin: 2.5px;
-
-    /* Text */
-    color: black;
-    font-size: 36px;
-    font-weight: bold;
+    color: var(--text-primary);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 8px;
+    background: var(--glass-bg);
+    transition: all 0.3s;
 }
 
 .correct {
-    background-color: #6AAA64;
+    background: linear-gradient(135deg, #22c55e, #16a34a) !important;
     color: white;
-    border-color: white;
+    border-color: #22c55e !important;
+    box-shadow: 0 0 12px rgba(34, 197, 94, 0.3);
 }
 
 .present {
-    background-color: #C9B458;
+    background: linear-gradient(135deg, #eab308, #ca8a04) !important;
     color: white;
-    border-color: white;
+    border-color: #eab308 !important;
+    box-shadow: 0 0 12px rgba(234, 179, 8, 0.3);
 }
 
 .absent {
-    background-color: #787C7E;
-    color: white;
-    border-color:white;
+    background: rgba(255, 255, 255, 0.06) !important;
+    color: var(--text-muted);
+    border-color: rgba(255, 255, 255, 0.04) !important;
 }
 
-
 .keyboard-row {
-    width: 400px;
-
+    width: 420px;
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+    margin-bottom: 6px;
 }
 
 .key-tile {
     width: 36px;
-    height: 40px;
-    margin: 1px;
-    border: 1px solid lightgray;
-
-    /* Text */
-    font-size: 20px;
-    font-weight: bold;
+    height: 44px;
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+    color: var(--text-primary);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.key-tile:hover {
+    background: rgba(0, 240, 255, 0.1);
+    border-color: var(--accent-cyan);
 }
 
 .enter-key-tile {
     width: 76px;
-    height: 40px;
-    margin: 1px;
-    border: 1px solid lightgray;
-
-    /* Text */
-    font-size: 20px;
-    font-weight: bold;
+    height: 44px;
+    border: 1px solid var(--glass-border);
+    background: var(--gradient-primary);
+    color: var(--bg-primary);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.enter-key-tile:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 240, 255, 0.2);
+}
+
+.game-result {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent-cyan);
+    min-height: 1.5em;
+}
+
+@media (max-width: 450px) {
+    #board { width: 300px; height: 360px; }
+    .tile { width: 50px; height: 50px; font-size: 1.5rem; }
+    .keyboard-row { width: 340px; }
+    .key-tile { width: 30px; height: 38px; font-size: 0.8rem; }
+    .enter-key-tile { width: 60px; height: 38px; font-size: 0.75rem; }
 }

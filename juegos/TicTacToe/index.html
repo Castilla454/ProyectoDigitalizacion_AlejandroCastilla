@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic Tac Toe</title>
+    <title>Tic Tac Toe - GameDev Portfolio</title>
+    <link rel="stylesheet" href="../shared-game-styles.css">
     <link rel="stylesheet" href="tictactoe.css">
-    <script src="tictactoe.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-    <h1>Tic Tac Toe</h1>
-    <hr>
-    <br>
-    <!-- 3x3 -->
-    <div id="board">
+    <div class="game-topbar">
+        <a href="/" class="back-link"><i class="fas fa-arrow-left"></i> Portfolio</a>
+        <span class="game-title">Tic Tac Toe</span>
+        <button class="btn-new-game" onclick="resetGame()" style="font-size:0.8rem;padding:8px 16px"><i class="fas fa-redo"></i> Nueva</button>
     </div>
+    <div class="game-container">
+        <div class="game-status" id="status">Turno de O</div>
+        <div id="board"></div>
+    </div>
+    <script src="tictactoe.js"></script>
 </body>
 </html>

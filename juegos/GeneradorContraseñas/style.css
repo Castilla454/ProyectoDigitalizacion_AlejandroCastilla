@@ -1,74 +1,136 @@
-body {
-    background-color: lightseagreen; 
-    font-family: Arial, Helvetica, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    height: 100vh;
-    overflow: hidden;
-}
+/* Password Generator Cyberpunk Theme */
 
 #password-generator {
-    background-color: whitesmoke;
-    border: 5px solid lightgray;
+    background: var(--bg-secondary);
+    border: 2px solid var(--glass-border);
     width: 500px;
-    height: 250px;
-    border-radius: 25px;
-    padding: 10px;
+    max-width: 95vw;
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
 }
 
-#password { 
-    display: grid; 
-    grid-template-columns: auto min-content; 
-    border-radius: 10px; 
-    overflow: hidden; 
-} 
-  
-#result { 
-    padding: 10px; 
-    background-color: lightgray; 
-    font-size: 2em;
+#password {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+#result {
+    padding: 14px;
+    background: var(--bg-tertiary);
+    font-family: 'Space Grotesk', monospace;
+    font-size: 1.4em;
+    font-weight: 600;
+    color: var(--accent-cyan);
     border: none;
     outline: none;
 }
 
-#copy-button { 
-    background-color: lightseagreen; 
-    color: white;
-    padding: 10px; 
+#copy-button {
+    background: var(--gradient-primary);
+    color: var(--bg-primary);
+    padding: 14px 20px;
     border: none;
-    cursor: pointer;  
+    cursor: pointer;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+#copy-button:hover {
+    opacity: 0.9;
+}
+
+label[for="password-length"] {
+    display: block;
+    color: var(--text-secondary);
+    font-weight: 600;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
 }
 
 #password-length {
     width: 90%;
+    accent-color: var(--accent-cyan);
+    margin-bottom: 4px;
 }
 
-#options { 
-    display: grid; 
+output {
+    color: var(--accent-cyan);
+    font-family: 'Space Grotesk', monospace;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+#options {
+    display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px; 
-} 
-  
-#options label { 
-    display: block; 
-    background-color: lightgray; 
-    padding: 10px; 
-    border-radius: 10px; 
-    cursor: pointer; 
-    font-family: sans-serif; 
+    gap: 8px;
+    margin: 16px 0;
+}
+
+#options label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    padding: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+#options label:hover {
+    border-color: var(--accent-cyan);
+    background: rgba(0, 240, 255, 0.05);
+}
+
+#options input[type="checkbox"] {
+    accent-color: var(--accent-cyan);
+    width: 18px;
+    height: 18px;
 }
 
 #generate-button {
-    background-color: lightseagreen; 
-    color: white;
+    background: var(--gradient-primary);
+    color: var(--bg-primary);
     border: none;
-    border-radius: 10px;
-    margin-top: 10px;
-    width: 175px;
-    height: 50px;
-    font-size: 1em;
-    cursor: pointer; 
+    border-radius: 30px;
+    margin-top: 8px;
+    width: 200px;
+    height: 48px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+#generate-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 240, 255, 0.3);
+}
+
+@media (max-width: 550px) {
+    #password-generator { padding: 16px; }
+    #result { font-size: 1.1em; }
+    #options { grid-template-columns: 1fr; }
 }
   

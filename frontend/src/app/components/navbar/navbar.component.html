@@ -1,0 +1,44 @@
+<nav class="navbar" [class.scrolled]="isScrolled">
+    <div class="nav-container">
+        <!-- Logo -->
+        <a routerLink="/" class="nav-logo">
+            <i class="fas fa-gamepad"></i>
+            <span>GameDev<strong>Portfolio</strong></span>
+        </a>
+
+        <!-- Desktop Nav -->
+        <div class="nav-links" [class.active]="isMenuOpen">
+            <a href="#projects" class="nav-link" (click)="isMenuOpen = false">
+                <i class="fas fa-rocket"></i> Juegos
+            </a>
+            <a href="#skills" class="nav-link" (click)="isMenuOpen = false">
+                <i class="fas fa-code"></i> Skills
+            </a>
+
+            <!-- Auth buttons -->
+            <div class="nav-auth" *ngIf="!(authService.currentUser$ | async)">
+                <a routerLink="/auth" class="btn btn-outline btn-nav">
+                    <i class="fas fa-sign-in-alt"></i> Entrar
+                </a>
+            </div>
+
+            <!-- User menu -->
+            <div class="nav-user" *ngIf="authService.currentUser$ | async as user">
+                <div class="user-badge">
+                    <div class="user-avatar">
+                        {{ user.displayName?.charAt(0)?.toUpperCase() || user.username?.charAt(0)?.toUpperCase() }}
+                    </div>
+                    <span class="user-name">{{ user.displayName || user.username }}</span>
+                </div>
+                <button class="btn-logout" (click)="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile toggle -->
+        <button class="nav-toggle" (click)="toggleMenu()">
+            <i class="fas" [class.fa-bars]="!isMenuOpen" [class.fa-times]="isMenuOpen"></i>
+        </button>
+    </div>
+</nav>

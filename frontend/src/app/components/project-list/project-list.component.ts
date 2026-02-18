@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Project, ProjectService, FALLBACK_PROJECTS } from '../../services/project.service';
+import { GameRatingComponent } from '../game-rating/game-rating.component';
 
 @Component({
     selector: 'app-project-list',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, GameRatingComponent],
     templateUrl: './project-list.component.html',
     styleUrls: ['./project-list.component.css']
 })

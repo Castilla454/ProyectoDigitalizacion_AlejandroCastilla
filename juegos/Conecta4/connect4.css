@@ -1,35 +1,53 @@
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
-}
+/* Connect 4 Cyberpunk Theme */
 
 #board {
-    height: 540px;
-    width: 630px;
-    background-color: blue;
-    border: 10px solid navy;
-    
+    height: auto;
+    width: fit-content;
+    background: linear-gradient(145deg, #1a1a3e, #12122a);
+    border: 3px solid var(--glass-border);
+    border-radius: var(--radius-lg);
     margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    padding: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 240, 255, 0.05);
 }
 
 .tile {
-    height: 70px;
-    width: 70px;
-    margin: 5px;
-
-    /* Circle */
-    background-color: white;
+    height: 65px;
+    width: 65px;
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 50%;
-    border: 5px solid navy;
+    border: 2px solid rgba(255, 255, 255, 0.08);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tile:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(0, 240, 255, 0.3);
+    transform: scale(1.05);
 }
 
 .red-piece {
-    background-color: red;
+    background: radial-gradient(circle at 35% 35%, #ff6b6b, #ef4444) !important;
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.4), inset 0 -3px 6px rgba(0, 0, 0, 0.3);
 }
 
 .yellow-piece {
-    background-color: yellow;
+    background: radial-gradient(circle at 35% 35%, #fde047, #eab308) !important;
+    border-color: #eab308 !important;
+    box-shadow: 0 0 15px rgba(234, 179, 8, 0.4), inset 0 -3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.winner-tile {
+    animation: pulse 0.6s infinite;
+}
+
+@media (max-width: 550px) {
+    .tile { width: 45px; height: 45px; }
+    #board { gap: 4px; padding: 10px; }
 }
 

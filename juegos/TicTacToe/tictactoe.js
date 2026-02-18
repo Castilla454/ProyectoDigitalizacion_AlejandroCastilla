@@ -7,9 +7,14 @@ let currPlayer = playerO;
 let gameOver = false;
 
 window.onload = function () {
+    setGame();
+}
 
-
-
+function resetGame() {
+    gameOver = false;
+    currPlayer = playerO;
+    document.getElementById("board").innerHTML = '';
+    document.getElementById("status").innerText = 'Turno de O';
     setGame();
 }
 
@@ -71,10 +76,10 @@ function setTile() {
 
     if (currPlayer == playerO) {
         currPlayer = playerX;
-
+        document.getElementById("status").innerText = "Turno de X";
     } else {
-
         currPlayer = playerO;
+        document.getElementById("status").innerText = "Turno de O";
     }
 
 
@@ -100,6 +105,7 @@ function checkWinner() {
             }
 
             gameOver = true;
+            document.getElementById("status").innerText = "🎉 ¡Gana " + board[r][0] + "!";
             return;
         }
 
@@ -119,6 +125,7 @@ function checkWinner() {
             }
 
             gameOver = true;
+            document.getElementById("status").innerText = "🎉 ¡Gana " + board[0][c] + "!";
             return;
         }
 
@@ -138,6 +145,7 @@ function checkWinner() {
         }
 
         gameOver = true;
+        document.getElementById("status").innerText = "🎉 ¡Gana " + board[0][0] + "!";
         return;
 
 
@@ -158,11 +166,20 @@ function checkWinner() {
         tile = document.getElementById("2-0");
         tile.classList.add("winner");
 
-
-
-        gameOver=true;
+        gameOver = true;
+        document.getElementById("status").innerText = "🎉 ¡Gana " + board[0][2] + "!";
         return;
 
+    }
+
+    // Check draw
+    let isFull = true;
+    for (let r = 0; r < 3; r++)
+        for (let c = 0; c < 3; c++)
+            if (board[r][c] == ' ') isFull = false;
+    if (isFull) {
+        gameOver = true;
+        document.getElementById("status").innerText = "🤝 ¡Empate!";
     }
 
 }

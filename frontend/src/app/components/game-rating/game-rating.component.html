@@ -1,0 +1,71 @@
+<div class="rating-wrapper">
+    <!-- Star summary (always visible on cards) -->
+    <div class="rating-summary" (click)="togglePanel()">
+        <div class="stars-display">
+            <i *ngFor="let star of getStarArray()"
+               [class]="getStarClass(star, avgRating)"
+               class="star-icon"></i>
+        </div>
+        <span class="rating-text" *ngIf="totalRatings > 0">
+            {{ avgRating | number:'1.1-1' }} ({{ totalRatings }})
+        </span>
+        <span class="rating-text" *ngIf="totalRatings === 0">
+            Sin valoraciones
+        </span>
+        <i class="fas fa-chevron-down toggle-icon" [class.open]="isOpen"></i>
+    </div>
+
+    <!-- Expandable panel -->
+    <div class="rating-panel" *ngIf="isOpen">
+        <!-- Submit rating (logged in) -->
+        <div class="rate-section" *ngIf="authService.isLoggedIn">
+            <h4>Tu valoración</h4>
+            <div class="star-input">
+                <i *ngFor="let star of getStarArray()"
+                   class="fas fa-star star-btn"
+                   [class.active]="star <= (hoverRating || userRating)"
+                   (mouseenter)="hoverRating = star"
+                   (mouseleave)="hoverRating = 0"
+                   (click)="setRating(star)"></i>
+            </div>
+            <textarea
+                [(ngModel)]="userComment"
+                placeholder="Escribe un comentario (opcional)..."
+                rows="2"
+                class="comment-input"></textarea>
+            <button
+                class="btn btn-primary btn-sm-rating"
+                (click)="submitRating()"
+                [disabled]="!userRating || isSubmitting">
+                <i class="fas" [class.fa-paper-plane]="!isSubmitting" [class.fa-spinner]="isSubmitting" [class.fa-spin]="isSubmitting"></i>
+                {{ isSubmitting ? 'Enviando...' : 'Enviar' }}
+            </button>
+            <div class="success-msg" *ngIf="submitSuccess">
+                <i class="fas fa-check-circle"></i> Valoración guardada
+            </div>
+        </div>
+
+        <!-- Login prompt -->
+        <div class="login-prompt" *ngIf="!authService.isLoggedIn">
+            <i class="fas fa-lock"></i>
+            <span>Inicia sesión para valorar este juego</span>
+        </div>
+
+        <!-- Recent reviews -->
+        <div class="reviews-section" *ngIf="reviews.length > 0">
+            <h4>Opiniones recientes</h4>
+            <div class="review" *ngFor="let review of reviews">
+                <div class="review-header">
+                    <div class="review-stars">
+                        <i *ngFor="let star of getStarArray()"
+                           [class]="getStarClass(star, review.rating)"
+                           class="star-mini"></i>
+                    </div>
+                    <span class="review-author">{{ review.player_name }}</span>
+                    <span class="review-date">{{ formatDate(review.created_at) }}</span>
+                </div>
+                <p class="review-comment" *ngIf="review.comment">{{ review.comment }}</p>
+            </div>
+        </div>
+    </div>
+</div>
