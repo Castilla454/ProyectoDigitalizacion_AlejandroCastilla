@@ -1,0 +1,72 @@
+[
+    {
+        "id": 1,
+        "title": "Cómo creé el 2048 desde cero con JavaScript",
+        "slug": "como-cree-el-2048-desde-cero",
+        "content": "# Cómo creé el 2048 desde cero con JavaScript\n\nEl 2048 fue el primer juego que desarrollé para este portfolio y me enseñó muchísimo sobre **lógica de juegos** y **animaciones CSS**.\n\n## El reto principal\n\nEl mayor desafío fue implementar la lógica de movimiento y fusión de fichas. Cada vez que el jugador desliza en una dirección, todas las fichas deben moverse y las que tienen el mismo valor deben fusionarse.\n\n## La solución\n\nUtilicé una **matriz 4x4** para representar el tablero. Cada celda contiene un valor numérico (0 para vacía, o potencias de 2).\n\n```javascript\nconst board = [\n    [0, 2, 0, 4],\n    [2, 0, 8, 0],\n    [0, 4, 0, 2],\n    [16, 0, 2, 0]\n];\n```\n\nPara mover las fichas, implementé una función que comprime cada fila/columna eliminando los ceros y luego fusiona los valores adyacentes iguales.\n\n## Animaciones\n\nLas animaciones de aparición y fusión de fichas las hice con **CSS transitions** y `transform: scale()`. El efecto de \"pop\" al fusionarse dos fichas da un feedback visual muy satisfactorio.\n\n## Lecciones aprendidas\n\n- La importancia de separar la lógica del juego de la representación visual\n- Cómo usar `requestAnimationFrame` para animaciones suaves\n- El poder de las CSS Custom Properties para tematizar los colores de las fichas\n\n¡Espero que os guste el resultado! Podéis probarlo en la sección de juegos.",
+        "excerpt": "Mi experiencia creando el clásico juego de puzzles numéricos, los retos de la lógica de fusión de fichas y las animaciones CSS.",
+        "cover_image_url": null,
+        "author_id": 1,
+        "published": true,
+        "created_at": "2026-01-15T10:30:00Z",
+        "updated_at": "2026-01-15T10:30:00Z",
+        "author_username": "alex",
+        "author_display_name": "Alex"
+    },
+    {
+        "id": 2,
+        "title": "BlackJack: Implementando la IA del dealer",
+        "slug": "blackjack-implementando-ia-dealer",
+        "content": "# BlackJack: Implementando la IA del dealer\n\nUno de los aspectos más interesantes del BlackJack es la **inteligencia artificial del dealer**. Aunque suena complejo, la estrategia del crupier sigue reglas bastante simples.\n\n## Las reglas del dealer\n\nEl dealer siempre sigue estas reglas:\n- **Pide carta** si tiene 16 o menos\n- **Se planta** si tiene 17 o más\n- El As vale 11 a menos que se pase de 21\n\n## Implementación en JavaScript\n\n```javascript\nfunction dealerTurn() {\n    while (calculateHand(dealerHand) < 17) {\n        dealerHand.push(drawCard());\n    }\n    return calculateHand(dealerHand);\n}\n```\n\n## El sistema de cartas\n\nPara las cartas utilicé un **array de objetos** con palo, valor y una imagen. El mazo se baraja usando el algoritmo de **Fisher-Yates**, que garantiza una distribución uniforme.\n\n## Animaciones de las cartas\n\nCada carta aparece con una animación de *flip* 3D usando `transform: rotateY()`. El efecto es muy satisfactorio y da sensación de estar jugando con cartas reales.\n\n## Próximos pasos\n\nMe gustaría añadir:\n- Sistema de apuestas con fichas virtuales\n- Opción de *split* y *double down*\n- Sonidos de casino",
+        "excerpt": "Descubre cómo implementé la inteligencia artificial del crupier en mi versión del BlackJack usando JavaScript puro.",
+        "cover_image_url": null,
+        "author_id": 1,
+        "published": true,
+        "created_at": "2026-01-22T14:00:00Z",
+        "updated_at": "2026-01-22T14:00:00Z",
+        "author_username": "alex",
+        "author_display_name": "Alex"
+    },
+    {
+        "id": 3,
+        "title": "Wordle en español: el reto de las tildes",
+        "slug": "wordle-en-espanol-reto-tildes",
+        "content": "# Wordle en español: el reto de las tildes\n\nCuando decidí hacer mi versión de Wordle, sabía que implementarlo en **español** traería retos únicos que la versión inglesa no tiene.\n\n## El diccionario\n\nEl primer problema fue conseguir un buen diccionario de palabras de 5 letras en español. Tras filtrar un diccionario completo, me quedé con unas **3.000 palabras válidas**.\n\n## Las tildes: ¿cuentan o no?\n\nEsta fue la decisión de diseño más complicada. Al final opté por que las tildes **no importen** al escribir: si la palabra secreta es \"RATÓN\", aceptamos tanto \"RATON\" como \"RATÓN\".\n\n```javascript\nfunction normalizeWord(word) {\n    return word.normalize('NFD')\n        .replace(/[\\u0300-\\u036f]/g, '')\n        .toUpperCase();\n}\n```\n\n## El algoritmo de colores\n\nEl algoritmo para colorear las letras (verde, amarillo, gris) es más complejo de lo que parece. Hay que tener en cuenta las **letras repetidas**:\n\n1. Primero marcamos todos los **verdes** (posición correcta)\n2. Luego marcamos los **amarillos** (letra correcta, posición incorrecta)\n3. El resto son **grises**\n\n## Animaciones con CSS\n\nCada fila se anima con un efecto de *flip* secuencial usando `animation-delay` para que las letras se revelen una por una. ¡El resultado es muy dramático!\n\n## Resultado\n\nEl Wordle se ha convertido en uno de los juegos más populares de mi portfolio. ¡La gente vuelve cada día a intentar adivinar la palabra!",
+        "excerpt": "Los desafíos únicos de crear un Wordle en español: gestión de tildes, diccionario de palabras y el algoritmo de colores.",
+        "cover_image_url": null,
+        "author_id": 1,
+        "published": true,
+        "created_at": "2026-02-03T09:15:00Z",
+        "updated_at": "2026-02-03T09:15:00Z",
+        "author_username": "alex",
+        "author_display_name": "Alex"
+    },
+    {
+        "id": 4,
+        "title": "Conecta 4: Minimax y árboles de decisión",
+        "slug": "conecta-4-minimax-arboles-decision",
+        "content": "# Conecta 4: Minimax y árboles de decisión\n\nEl Conecta 4 es un juego que parece simple pero tiene una **complejidad estratégica** enorme. Para la IA implementé el algoritmo **Minimax** con poda alfa-beta.\n\n## ¿Qué es Minimax?\n\nMinimax es un algoritmo de teoría de juegos que evalúa todas las posibles jugadas futuras y elige la que **maximiza la puntuación** del jugador actual mientras **minimiza** la del oponente.\n\n## Implementación\n\n```javascript\nfunction minimax(board, depth, isMaximizing, alpha, beta) {\n    if (depth === 0 || isTerminal(board)) {\n        return evaluateBoard(board);\n    }\n    \n    if (isMaximizing) {\n        let maxEval = -Infinity;\n        for (let col of getValidMoves(board)) {\n            const newBoard = makeMove(board, col, AI_PLAYER);\n            const eval = minimax(newBoard, depth - 1, false, alpha, beta);\n            maxEval = Math.max(maxEval, eval);\n            alpha = Math.max(alpha, eval);\n            if (beta <= alpha) break;\n        }\n        return maxEval;\n    }\n    // ... minimizing player\n}\n```\n\n## La función de evaluación\n\nLa clave del Minimax es tener una buena **función de evaluación** que puntúe el estado del tablero. Mi función evalúa:\n- Fichas consecutivas propias (+puntos)\n- Fichas consecutivas del rival (-puntos)\n- Control del centro del tablero (+puntos extra)\n\n## Rendimiento\n\nSin optimizar, Minimax con profundidad 6 tardaba varios segundos. Con **poda alfa-beta**, reduje el tiempo a menos de 100ms.\n\n## El resultado\n\nLa IA es bastante difícil de vencer. ¡Os reto a intentarlo!",
+        "excerpt": "Cómo implementé una IA competitiva para el Conecta 4 usando el algoritmo Minimax con poda alfa-beta.",
+        "cover_image_url": null,
+        "author_id": 1,
+        "published": true,
+        "created_at": "2026-02-10T16:45:00Z",
+        "updated_at": "2026-02-10T16:45:00Z",
+        "author_username": "alex",
+        "author_display_name": "Alex"
+    },
+    {
+        "id": 5,
+        "title": "De portfolio simple a plataforma de juegos: mi journey",
+        "slug": "de-portfolio-simple-a-plataforma-juegos",
+        "content": "# De portfolio simple a plataforma de juegos\n\nLo que empezó como un simple portfolio HTML se ha convertido en una **plataforma completa** con autenticación, rankings, valoraciones y ahora un blog.\n\n## La evolución\n\n### Fase 1: HTML estático\nTodo empezó con archivos HTML, CSS y JavaScript sueltos. Cada juego era una página independiente sin conexión entre ellas.\n\n### Fase 2: Angular + Node.js\nMigré todo a **Angular** para el frontend y **Node.js con Express** para el backend. Esto me permitió añadir:\n- Sistema de autenticación con JWT\n- Base de datos PostgreSQL\n- API REST\n\n### Fase 3: Features sociales\nAñadí las funcionalidades que hacen que la plataforma sea *interactiva*:\n- **Leaderboards** para cada juego\n- **Sistema de valoraciones** con comentarios\n- **Chatbot** de ayuda\n- **Blog de desarrollo** (¡lo que estás leyendo!)\n\n## Stack tecnológico\n\n| Tecnología | Uso |\n|-----------|-----|\n| Angular 19 | Frontend SPA |\n| Node.js + Express | API Backend |\n| PostgreSQL | Base de datos |\n| Docker | Despliegue |\n| JWT + bcrypt | Autenticación |\n\n## Lo que he aprendido\n\n1. **Empieza simple** — Un MVP funcional vale más que un proyecto ambicioso a medio hacer\n2. **Itera** — Cada versión mejora la anterior\n3. **Documenta** — Este blog me ayuda a reflexionar sobre mis decisiones\n4. **Diviértete** — Si no disfrutas el proceso, se nota en el resultado\n\n## ¿Qué viene después?\n\nTengo muchas ideas: multijugador en tiempo real, más juegos, PWA para jugar offline... ¡Stayed tuned!",
+        "excerpt": "La historia de cómo este proyecto evolucionó de un portfolio HTML estático a una plataforma completa con 8 juegos, autenticación y rankings.",
+        "cover_image_url": null,
+        "author_id": 1,
+        "published": true,
+        "created_at": "2026-02-18T11:00:00Z",
+        "updated_at": "2026-02-18T11:00:00Z",
+        "author_username": "alex",
+        "author_display_name": "Alex"
+    }
+]

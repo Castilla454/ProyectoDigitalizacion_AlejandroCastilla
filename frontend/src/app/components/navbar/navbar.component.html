@@ -14,7 +14,11 @@
             <a href="#skills" class="nav-link" (click)="isMenuOpen = false">
                 <i class="fas fa-code"></i> Skills
             </a>
+            <a routerLink="/blog" class="nav-link" (click)="isMenuOpen = false">
+                <i class="fas fa-blog"></i> Blog
+            </a>
 
+            <!-- Theme Toggle Removed -->
             <!-- Auth buttons -->
             <div class="nav-auth" *ngIf="!(authService.currentUser$ | async)">
                 <a routerLink="/auth" class="btn btn-outline btn-nav">
@@ -24,12 +28,12 @@
 
             <!-- User menu -->
             <div class="nav-user" *ngIf="authService.currentUser$ | async as user">
-                <div class="user-badge">
+                <a routerLink="/profile" class="user-badge">
                     <div class="user-avatar">
                         {{ user.displayName?.charAt(0)?.toUpperCase() || user.username?.charAt(0)?.toUpperCase() }}
                     </div>
                     <span class="user-name">{{ user.displayName || user.username }}</span>
-                </div>
+                </a>
                 <button class="btn-logout" (click)="logout()">
                     <i class="fas fa-sign-out-alt"></i>
                 </button>

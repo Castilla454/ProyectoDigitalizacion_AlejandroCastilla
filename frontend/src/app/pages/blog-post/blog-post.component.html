@@ -1,0 +1,83 @@
+<div class="blog-post-page">
+    <div class="container">
+        <!-- Loading -->
+        <div class="blog-loading" *ngIf="isLoading">
+            <div class="spinner"></div>
+            <p>Cargando post...</p>
+        </div>
+
+        <!-- Error -->
+        <div class="blog-error" *ngIf="error && !isLoading">
+            <i class="fas fa-exclamation-triangle"></i>
+            <h3>{{ error }}</h3>
+            <a routerLink="/blog" class="btn btn-outline">
+                <i class="fas fa-arrow-left"></i> Volver al blog
+            </a>
+        </div>
+
+        <!-- Post Content -->
+        <article class="post-article" *ngIf="post && !isLoading">
+            <!-- Cover Image -->
+            <div class="post-cover" *ngIf="post.cover_image_url"
+                [style.background-image]="'url(' + post.cover_image_url + ')'">
+                <div class="post-cover-overlay"></div>
+            </div>
+
+            <!-- Post Header -->
+            <header class="post-header">
+                <a routerLink="/blog" class="post-back">
+                    <i class="fas fa-arrow-left"></i> Volver al blog
+                </a>
+
+                <h1 class="post-title">{{ post.title }}</h1>
+
+                <div class="post-meta">
+                    <div class="post-author">
+                        <div class="author-avatar">
+                            {{ (post.author_display_name || post.author_username || 'A').charAt(0).toUpperCase() }}
+                        </div>
+                        <div class="author-info">
+                            <span class="author-name">{{ post.author_display_name || post.author_username }}</span>
+                            <span class="post-date">{{ formatDate(post.created_at) }}</span>
+                        </div>
+                    </div>
+                    <div class="post-stats">
+                        <span><i class="far fa-clock"></i> {{ getReadingTime(post.content) }} min lectura</span>
+                    </div>
+                </div>
+
+                <!-- Author Actions -->
+                <div class="post-actions" *ngIf="isAuthor()">
+                    <a [routerLink]="['/blog/editor', post.id]" class="btn btn-outline btn-sm">
+                        <i class="fas fa-edit"></i> Editar
+                    </a>
+                    <button class="btn btn-danger btn-sm" (click)="deletePost()">
+                        <i class="fas fa-trash"></i> Eliminar
+                    </button>
+                </div>
+
+                <div class="post-draft-badge" *ngIf="!post.published">
+                    <i class="fas fa-eye-slash"></i> Borrador — Solo visible para ti
+                </div>
+            </header>
+
+            <!-- Post Body -->
+            <div class="post-content" [innerHTML]="renderContent(post.content)"></div>
+
+            <!-- Post Footer -->
+            <footer class="post-footer">
+                <div class="post-share">
+                    <span>Compartir:</span>
+                    <div class="share-buttons">
+                        <button class="share-btn" title="Copiar enlace" (click)="$event.preventDefault()">
+                            <i class="fas fa-link"></i>
+                        </button>
+                    </div>
+                </div>
+                <a routerLink="/blog" class="btn btn-outline">
+                    <i class="fas fa-arrow-left"></i> Todos los posts
+                </a>
+            </footer>
+        </article>
+    </div>
+</div>

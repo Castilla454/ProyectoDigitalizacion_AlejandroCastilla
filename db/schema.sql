@@ -83,6 +83,77 @@ CREATE TABLE IF NOT EXISTS chat_messages (
 );
 
 -- ========================================
+-- BLOG POSTS TABLE
+-- ========================================
+CREATE TABLE IF NOT EXISTS blog_posts (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    slug VARCHAR(255) UNIQUE NOT NULL,
+    content TEXT NOT NULL,
+    excerpt VARCHAR(500),
+    cover_image_url VARCHAR(500),
+    author_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+    published BOOLEAN DEFAULT false,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_blog_slug ON blog_posts(slug);
+CREATE INDEX IF NOT EXISTS idx_blog_author ON blog_posts(author_id);
+CREATE INDEX IF NOT EXISTS idx_blog_published ON blog_posts(published);
+
+-- ========================================
+-- USER FAVORITES TABLE
+-- ========================================
+CREATE TABLE IF NOT EXISTS user_favorites (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    game_id VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(user_id, game_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_favorites_user ON user_favorites(user_id);
+
+-- ========================================
+-- ACHIEVEMENTS TABLE
+-- ========================================
+CREATE TABLE IF NOT EXISTS achievements (
+    id SERIAL PRIMARY KEY,
+    key VARCHAR(50) UNIQUE NOT NULL,
+    title VARCHAR(100) NOT NULL,
+    description VARCHAR(255) NOT NULL,
+    icon VARCHAR(50) NOT NULL,
+    rarity VARCHAR(20) DEFAULT 'common' CHECK (rarity IN ('common', 'rare', 'epic', 'legendary')),
+    condition_type VARCHAR(50) NOT NULL,
+    condition_value INTEGER DEFAULT 1
+);
+
+CREATE TABLE IF NOT EXISTS user_achievements (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    achievement_id INTEGER NOT NULL REFERENCES achievements(id) ON DELETE CASCADE,
+    unlocked_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(user_id, achievement_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_user_achievements_user ON user_achievements(user_id);
+
+-- ========================================
+-- SEED DATA - Achievements
+-- ========================================
+INSERT INTO achievements (key, title, description, icon, rarity, condition_type, condition_value) VALUES
+    ('first_play', 'Primer Paso', 'Juega tu primera partida', 'fa-play', 'common', 'total_plays', 1),
+    ('ten_plays', 'Jugador Habitual', 'Juega 10 partidas', 'fa-gamepad', 'common', 'total_plays', 10),
+    ('fifty_plays', 'Veterano', 'Juega 50 partidas', 'fa-trophy', 'rare', 'total_plays', 50),
+    ('first_rating', 'Crítico Novato', 'Valora tu primer juego', 'fa-star', 'common', 'total_ratings', 1),
+    ('five_ratings', 'Crítico Experto', 'Valora 5 juegos', 'fa-star-half-alt', 'rare', 'total_ratings', 5),
+    ('top_scorer', 'Número Uno', 'Consigue el primer puesto en un ranking', 'fa-crown', 'epic', 'top_rank', 1),
+    ('all_games', 'Explorador', 'Juega todos los juegos disponibles', 'fa-compass', 'epic', 'unique_games', 8),
+    ('collector', 'Coleccionista', 'Añade 5 juegos a favoritos', 'fa-heart', 'rare', 'total_favorites', 5)
+ON CONFLICT (key) DO NOTHING;
+
+-- ========================================
 -- INITIAL SEED DATA - Games Analytics
 -- ========================================
 INSERT INTO game_analytics (game_id, play_count) VALUES
@@ -95,3 +166,4 @@ INSERT INTO game_analytics (game_id, play_count) VALUES
     ('TicTacToe', 0),
     ('Wordle', 0)
 ON CONFLICT (game_id) DO NOTHING;
+

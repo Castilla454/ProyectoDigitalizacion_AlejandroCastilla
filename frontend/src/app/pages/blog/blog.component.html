@@ -1,0 +1,101 @@
+<div class="blog-page">
+    <div class="container">
+        <!-- Header -->
+        <header class="blog-header">
+            <div class="blog-header-badge">
+                <i class="fas fa-blog"></i> Devlog
+            </div>
+            <h1>Blog de <span class="highlight">Desarrollo</span></h1>
+            <p>Reflexiones, tutoriales y el detrás de escenas de mis juegos.</p>
+
+            <a *ngIf="authService.isLoggedIn" routerLink="/blog/editor"
+               class="btn btn-primary btn-new-post">
+                <i class="fas fa-plus"></i> Nuevo Post
+            </a>
+        </header>
+
+        <!-- Loading -->
+        <div class="blog-loading" *ngIf="isLoading">
+            <div class="spinner"></div>
+            <p>Cargando posts...</p>
+        </div>
+
+        <!-- Error -->
+        <div class="blog-error" *ngIf="error">
+            <i class="fas fa-exclamation-triangle"></i> {{ error }}
+        </div>
+
+        <!-- Empty state -->
+        <div class="blog-empty" *ngIf="!isLoading && !error && posts.length === 0">
+            <i class="fas fa-pen-fancy"></i>
+            <h3>Aún no hay publicaciones</h3>
+            <p>Las entradas del blog aparecerán aquí cuando se publiquen.</p>
+            <a *ngIf="authService.isLoggedIn" routerLink="/blog/editor"
+               class="btn btn-primary">
+                <i class="fas fa-plus"></i> Escribir el primer post
+            </a>
+        </div>
+
+        <!-- Posts Grid -->
+        <div class="blog-grid" *ngIf="!isLoading && posts.length > 0">
+            <article class="blog-card glass" *ngFor="let post of posts; let i = index"
+                     [style.animation-delay]="(i * 0.1) + 's'">
+                <div class="blog-card-cover" *ngIf="post.cover_image_url"
+                     [style.background-image]="'url(' + post.cover_image_url + ')'">
+                </div>
+                <div class="blog-card-cover blog-card-cover-default" *ngIf="!post.cover_image_url">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div class="blog-card-body">
+                    <div class="blog-card-meta">
+                        <span class="blog-card-date">
+                            <i class="far fa-calendar-alt"></i> {{ formatDate(post.created_at) }}
+                        </span>
+                        <span class="blog-card-read-time">
+                            <i class="far fa-clock"></i> {{ getReadingTime(post.content) }} min lectura
+                        </span>
+                    </div>
+                    <h2 class="blog-card-title">
+                        <a [routerLink]="['/blog', post.slug]">{{ post.title }}</a>
+                    </h2>
+                    <p class="blog-card-excerpt">
+                        {{ post.excerpt || (post.content | slice:0:150) + '...' }}
+                    </p>
+                    <div class="blog-card-footer">
+                        <div class="blog-card-author">
+                            <div class="author-avatar">
+                                {{ (post.author_display_name || post.author_username || 'A').charAt(0).toUpperCase() }}
+                            </div>
+                            <span>{{ post.author_display_name || post.author_username || 'Anónimo' }}</span>
+                        </div>
+                        <a [routerLink]="['/blog', post.slug]" class="blog-card-link">
+                            Leer más <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <!-- Pagination -->
+        <div class="blog-pagination" *ngIf="totalPages > 1">
+            <button class="btn btn-outline btn-sm"
+                    [disabled]="currentPage <= 1"
+                    (click)="loadPosts(currentPage - 1)">
+                <i class="fas fa-chevron-left"></i> Anterior
+            </button>
+            <span class="pagination-info">
+                Página {{ currentPage }} de {{ totalPages }}
+            </span>
+            <button class="btn btn-outline btn-sm"
+                    [disabled]="currentPage >= totalPages"
+                    (click)="loadPosts(currentPage + 1)">
+                Siguiente <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <!-- Back link -->
+        <a routerLink="/" class="back-link">
+            <i class="fas fa-arrow-left"></i> Volver al portfolio
+        </a>
+    </div>
+</div>

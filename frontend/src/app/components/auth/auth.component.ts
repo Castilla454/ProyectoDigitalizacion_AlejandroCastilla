@@ -92,7 +92,16 @@ export class AuthComponent {
             },
             error: (err: any) => {
                 this.isLoading = false;
-                this.error = err.error?.error || 'Error al registrarse';
+                console.error('Registration error:', err);
+                if (err.error && typeof err.error === 'object' && err.error.error) {
+                    this.error = err.error.error;
+                } else if (err.error && typeof err.error === 'string') {
+                    this.error = err.error;
+                } else if (err.status === 409) {
+                    this.error = 'El usuario o email ya existe';
+                } else {
+                    this.error = err.message || 'Error al registrarse';
+                }
             }
         });
     }

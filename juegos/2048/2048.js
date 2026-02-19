@@ -6,6 +6,10 @@ let gameOver = false;
 
 window.onload = function () {
     setGame();
+    // Track play
+    if (window.GameAPI) {
+        window.GameAPI.trackPlay('2048');
+    }
 }
 
 function resetGame() {
@@ -181,9 +185,11 @@ document.addEventListener("keyup", (e => {
     if (checkWin()) {
         gameOver = true;
         showResult("🎉 ¡Victoria!", "¡Has llegado a 2048!");
+        if (window.GameAPI) window.GameAPI.submitScore('2048', score);
     } else if (checkGameOver()) {
         gameOver = true;
         showResult("Game Over", "No hay más movimientos posibles");
+        if (window.GameAPI) window.GameAPI.submitScore('2048', score);
     }
 }));
 

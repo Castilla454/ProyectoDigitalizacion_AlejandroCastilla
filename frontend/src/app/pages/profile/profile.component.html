@@ -1,0 +1,119 @@
+<div class="profile-page">
+    <div class="container ">
+        <!-- Loading State -->
+        <div class="loading-state" *ngIf="isLoading">
+            <div class="spinner"></div>
+            <p>Cargando perfil...</p>
+        </div>
+
+        <!-- Error State -->
+        <div class="error-state" *ngIf="error && !isLoading">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p>{{ error }}</p>
+            <a routerLink="/" class="back-link">
+                <i class="fas fa-arrow-left"></i> Volver al portfolio
+            </a>
+        </div>
+
+        <!-- Profile Content -->
+        <div class="profile-content fade-in" *ngIf="profile && !isLoading">
+            <!-- Header Section -->
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <img [src]="getAvatarUrl()" alt="Avatar">
+                </div>
+                <div class="profile-info">
+                    <h1>{{ profile.user.displayName || profile.user.username }}</h1>
+                    <p class="username">@{{ profile.user.username }}</p>
+                    <p class="joined-date">
+                        <i class="far fa-calendar-alt"></i>
+                        Miembro desde {{ formatDate(profile.user.createdAt) }}
+                    </p>
+                </div>
+                <!-- Logout Button -->
+                <button class="btn btn-outline logout-btn" (click)="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                </button>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-overview">
+                <div class="stat-box">
+                    <span class="stat-value">{{ profile.totalGamesPlayed }}</span>
+                    <span class="stat-label">Partidas</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-value">{{ getUnlockedAchievementsCount() }}</span>
+                    <span class="stat-label">Logros</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-value">{{ profile.favorites.length }}</span>
+                    <span class="stat-label">Favoritos</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-value">{{ getPlayerRank() }}</span>
+                    <span class="stat-label">Rango</span>
+                </div>
+            </div>
+
+            <div class="profile-grid">
+                <!-- Left Column: Achievements -->
+                <div class="profile-section">
+                    <h2><i class="fas fa-trophy"></i> Logros</h2>
+                    <div class="achievements-list">
+                        <div class="achievement-item" *ngFor="let ach of profile.achievements"
+                            [class.locked]="!ach.unlocked_at" [class.common]="ach.rarity === 'common'"
+                            [class.rare]="ach.rarity === 'rare'" [class.epic]="ach.rarity === 'epic'"
+                            [class.legendary]="ach.rarity === 'legendary'">
+                            <div class="ach-icon">
+                                <i class="fas" [ngClass]="ach.icon"></i>
+                            </div>
+                            <div class="ach-info">
+                                <h3>{{ ach.title }}</h3>
+                                <p>{{ ach.description }}</p>
+                            </div>
+                            <div class="ach-status" *ngIf="ach.unlocked_at">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Recent Activity / Favorites -->
+                <div class="profile-section">
+                    <h2><i class="fas fa-heart"></i> Juegos Favoritos</h2>
+
+                    <div class="favorites-list" *ngIf="profile.favorites.length > 0; else noFavorites">
+                        <div class="fav-item" *ngFor="let fav of profile.favorites">
+                            <span class="fav-name">{{ getGameTitle(fav.game_id) }}</span>
+                            <a [routerLink]="['/juegos']" class="play-btn-small">
+                                <i class="fas fa-play"></i> Jugar
+                            </a>
+                        </div>
+                    </div>
+                    <ng-template #noFavorites>
+                        <p class="empty-state">No tienes juegos favoritos aún.</p>
+                    </ng-template>
+
+                    <h2 class="mt-4"><i class="fas fa-chart-line"></i> Mejores Puntuaciones</h2>
+                    <div class="scores-list" *ngIf="profile.topScores.length > 0; else noScores">
+                        <div class="score-item" *ngFor="let score of profile.topScores">
+                            <span class="game-name">{{ getGameTitle(score.game_id) }}</span>
+                            <span class="score-val">{{ score.score }} pts</span>
+                        </div>
+                    </div>
+                    <ng-template #noScores>
+                        <p class="empty-state">Juega para registrar puntuaciones.</p>
+                    </ng-template>
+                </div>
+            </div>
+
+            <div class="back-link-container">
+                <a routerLink="/" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Volver al portfolio
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
